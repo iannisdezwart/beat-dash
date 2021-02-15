@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/mime-types": "^2.1.0",
+    "@types/node": "^14.14.28",
+    "mime-types": "^2.1.28"
+  }
+}
