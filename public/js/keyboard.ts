@@ -9,7 +9,7 @@ class Keyboard {
 		addEventListener('keydown', e => this.pressedKeys[e.code] = true)
 		addEventListener('keyup',   e => this.pressedKeys[e.code] = false)
 
-		addEventListener('keydown',   e => {
+		addEventListener('keydown', e => {
 			for (let id in this.onPressCallbacks) {
 				const key = this.onPressCallbacks[id].key
 				const callback = this.onPressCallbacks[id].callback
