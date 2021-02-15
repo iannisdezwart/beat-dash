@@ -1,5 +1,5 @@
 class Floor extends Sprite {
-	static y = 450
+	static y = Game.height - 0.05
 
 	constructor() {
 		super()
@@ -7,7 +7,7 @@ class Floor extends Sprite {
 
 	render(game: Game) {
 		game.fillRect(new Vector([ game.scroll, Floor.y ]),
-			new Vector([ game.scroll + Game.width, Game.height ]), '#77ff77')
+			new Vector([ game.scroll + Game.width, Game.height ]), '#fb5607')
 	}
 
 	collision(player: Player) {

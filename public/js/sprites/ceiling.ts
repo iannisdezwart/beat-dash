@@ -1,5 +1,5 @@
 class Ceiling extends Sprite {
-	static y = 50
+	static y = 0.05
 
 	constructor() {
 		super()
@@ -7,7 +7,7 @@ class Ceiling extends Sprite {
 
 	render(game: Game) {
 		game.fillRect(new Vector([ game.scroll, 0 ]),
-			new Vector([ game.scroll + Game.width, Ceiling.y ]), '#77ff77')
+			new Vector([ game.scroll + Game.width, Ceiling.y ]), '#fb5607')
 	}
 
 	collision(player: Player) {
