@@ -2,12 +2,13 @@ abstract class Level {
 	songFileName: string
 	song = new Sound()
 	game: Game
+	audioVisualiser: AudioVisualiser
 	bpm: number
 
 	constructor(songFileName: string, bpm: number) {
 		this.songFileName = songFileName
 		this.bpm = bpm
-		this.game = new Game('#game', this)
+		this.game = new Game('game', this)
 		this.load()
 	}
 
@@ -26,5 +27,6 @@ abstract class Level {
 		})
 
 		this.song.load(songURL)
+		this.audioVisualiser = new AudioVisualiser('audio-visualiser', this.song)
 	}
 }

@@ -2,6 +2,7 @@ class Game {
 	canvas: HTMLCanvasElement
 	ctx: CanvasRenderingContext2D
 	level: Level
+	beatVisualiser: BeatVisualiser
 	intervalID: number
 	isRendering = false
 
@@ -11,24 +12,26 @@ class Game {
 	player: Player
 
 	scale: number
+	prevScroll = -Infinity
 	scroll = 0
 	bps: number
-	fps = 60
 	lastFrameTime = 0
 
+	static fps = 60
 	static width = 1
 	static height = 0.6
 
 	constructor(canvasID: string, level: Level) {
-		this.canvas = document.querySelector<HTMLCanvasElement>(canvasID)
+		this.canvas = document.getElementById(canvasID) as HTMLCanvasElement
 		this.ctx = this.canvas.getContext('2d')
 		this.level = level
 		this.bps = level.bpm / 60
+
+		this.beatVisualiser = new BeatVisualiser('beat-visualiser', this.bps)
+
 		this.resize()
 
-		addEventListener('resize', () => {
-			this.resize()
-		})
+		addEventListener('resize', () => this.resize())
 
 		this.keyboard.onPress('KeyP', () => {
 			if (this.isRendering) {
@@ -67,7 +70,7 @@ class Game {
 			// Render FPS counter
 
 			const renderDuration = performance.now() - this.lastFrameTime
-			const frameDelay = (1000 / this.fps - renderDuration)
+			const frameDelay = (1000 / Game.fps - renderDuration)
 			document.querySelector<HTMLDivElement>('#fps-counter').innerHTML
 				= (1000 / frameDelay).toFixed(1) + ' FPS'
 
@@ -116,6 +119,16 @@ class Game {
 			sprite.render(this, dt)
 		}
 
+		// Render audio and beat visualisers
+
+		this.level.audioVisualiser.render()
+		this.beatVisualiser.render()
+
+		if (Math.floor(this.prevScroll) != Math.floor(this.scroll)) {
+			this.beatVisualiser.beat()
+		}
+
+		this.prevScroll = this.scroll
 		this.lastFrameTime = now
 	}
 

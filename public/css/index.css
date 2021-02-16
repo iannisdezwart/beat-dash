@@ -14,8 +14,21 @@ body {
 	background-color: #111;
 }
 
+#beat-visualiser {
+	position: absolute;
+	pointer-events: none;
+	opacity: 1;
+}
+
+#audio-visualiser {
+	position: absolute;
+	pointer-events: none;
+	opacity: 1;
+}
+
 #game {
 	/* border: 1px solid #777; */
+	opacity: 0.8;
 }
 
 #fps-counter {
@@ -122,4 +135,36 @@ button:focus {
 
 .slider:hover input {
 	cursor: pointer;
+}
+
+.toggle {
+	display: flex;
+}
+
+.toggle .label {
+	margin: 0 .5em;
+}
+
+.toggle input {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 1.5em;
+	height: 1.5em;
+	outline: none;
+	border-radius: .5em;
+	background-color: #a33;
+	transition: background-color 300ms ease;
+}
+
+.toggle:hover input {
+	background-color: #c55;
+	cursor: pointer;
+}
+
+.toggle input:checked {
+	background-color: #3a3;
+}
+
+.toggle:hover input:checked {
+	background-color: #5c5;
 }

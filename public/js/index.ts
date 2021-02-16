@@ -11,28 +11,54 @@ const startGame = () => {
 	level.game.start()
 }
 
-const getStoredVolume = () => {
-	return parseFloat(localStorage.getItem('volume'))
-}
-
-const setStoredVolume = (newVolume: number) => {
-	localStorage.setItem('volume', newVolume.toString())
-	level.song.setVolume(newVolume)
-	volumeInputLabel.innerText = volumeInput.value + '%'
-}
+// Volume input
 
 const volumeInput = document.querySelector<HTMLInputElement>('#volume-slider')
 const volumeInputLabel = document.querySelector<HTMLDivElement>('#volume-slider-value')
 
 // Set volume to stored volume
 
-if (getStoredVolume() == null) {
-	setStoredVolume(1)
+if (database.storedVolume == null || Number.isNaN(database.storedVolume)) {
+	database.storedVolume = 1
 }
 
-setStoredVolume(getStoredVolume())
-
-volumeInput.oninput = () => {
+volumeInput.addEventListener('input', () => {
 	const volume = parseInt(volumeInput.value, 10) / 100
-	setStoredVolume(volume)
+	database.storedVolume = volume
+})
+
+// Beat visualiser input
+
+const beatVisualiserInput = document.querySelector<HTMLInputElement>('#beat-visualiser-toggle')
+
+// Set beat visualiser input to stored value
+
+if (database.beatVisualiserEnabled == null) {
+	database.beatVisualiserEnabled = false
 }
+
+beatVisualiserInput.addEventListener('input', () => {
+	const enabled = beatVisualiserInput.checked
+	database.beatVisualiserEnabled = enabled
+})
+
+// Audio visualiser input
+
+const audioVisualiserInput = document.querySelector<HTMLInputElement>('#audio-visualiser-toggle')
+
+// Set audio visualiser input to stored value
+
+if (database.audioVisualiserEnabled == null) {
+	database.audioVisualiserEnabled = true
+}
+
+audioVisualiserInput.addEventListener('input', () => {
+	const enabled = audioVisualiserInput.checked
+	database.audioVisualiserEnabled = enabled
+})
+
+// JavaScript magic!
+
+database.storedVolume = database.storedVolume
+database.beatVisualiserEnabled = database.beatVisualiserEnabled
+database.audioVisualiserEnabled = database.audioVisualiserEnabled
