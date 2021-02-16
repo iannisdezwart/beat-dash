@@ -1,35 +1,44 @@
 class LevelNostalgia extends Level {
 	constructor() {
 		super('/songs/tobu-nostalgia-short.mp3', 128)
+		// super('/songs/ephixa-laura-brehm-losing-you.mp3', 124)
+		// super('/songs/phantom-sage-away-feat-byndy-ncs-release.mp3', 140)
+		// super('/songs/flight-facilities-crave-you-adventure-club-dubstep-remix.mp3', 140)
 	}
 
 	loadLevel() {
 		this.game.sprites.push(new Floor())
 		this.game.sprites.push(new Ceiling())
-		this.game.sprites.push(new Spike(new Vector([ 1, 0.55 ])))
-		this.game.sprites.push(new Spike(new Vector([ 3, 0.55 ])))
-		this.game.sprites.push(new Spike(new Vector([ 5, 0.55 ])))
 
-		this.game.sprites.push(new Platform(7, 4, 0.05))
-		this.game.sprites.push(new Spike(new Vector([ 9, 0.50 ])))
-		this.game.sprites.push(new Platform(11, 4, 0.10))
-		this.game.sprites.push(new Spike(new Vector([ 13, 0.45 ])))
-		this.game.sprites.push(new Platform(15, 4, 0.15))
-		this.game.sprites.push(new Spike(new Vector([ 17, 0.40 ])))
-		this.game.sprites.push(new Platform(19, 4, 0.20))
-		this.game.sprites.push(new Spike(new Vector([ 21, 0.35 ])))
+		for (let i = 0; i < 1000; i++) {
+			const colour = (i % 2 == 0) ? '#ff0000' : '#0000ff'
+			this.game.sprites.push(new Spike(new Vector([ i, 0.55 ]), false, colour))
+		}
 
-		this.game.sprites.push(new Spike(new Vector([ 23, 0.55 ])))
-		this.game.sprites.push(new Spike(new Vector([ 25, 0.55 ])))
+		// this.game.sprites.push(new Spike(new Vector([ 1, 0.55 ])))
+		// this.game.sprites.push(new Spike(new Vector([ 3, 0.55 ])))
+		// this.game.sprites.push(new Spike(new Vector([ 5, 0.55 ])))
 
-		this.game.sprites.push(new Platform(27, 2, 0.05))
-		this.game.sprites.push(new Spike(new Vector([ 28, 0.50 ])))
-		this.game.sprites.push(new Platform(29, 2, 0.10))
-		this.game.sprites.push(new Spike(new Vector([ 30, 0.45 ])))
-		this.game.sprites.push(new Platform(31, 2, 0.15))
-		this.game.sprites.push(new Spike(new Vector([ 32, 0.40 ])))
-		this.game.sprites.push(new Platform(33, 2, 0.20))
-		this.game.sprites.push(new Spike(new Vector([ 34, 0.35 ])))
+		// this.game.sprites.push(new Platform(7, 4, 0.05))
+		// this.game.sprites.push(new Spike(new Vector([ 9, 0.50 ])))
+		// this.game.sprites.push(new Platform(11, 4, 0.10))
+		// this.game.sprites.push(new Spike(new Vector([ 13, 0.45 ])))
+		// this.game.sprites.push(new Platform(15, 4, 0.15))
+		// this.game.sprites.push(new Spike(new Vector([ 17, 0.40 ])))
+		// this.game.sprites.push(new Platform(19, 4, 0.20))
+		// this.game.sprites.push(new Spike(new Vector([ 21, 0.35 ])))
+
+		// this.game.sprites.push(new Spike(new Vector([ 23, 0.55 ])))
+		// this.game.sprites.push(new Spike(new Vector([ 25, 0.55 ])))
+
+		// this.game.sprites.push(new Platform(27, 2, 0.05))
+		// this.game.sprites.push(new Spike(new Vector([ 28, 0.50 ])))
+		// this.game.sprites.push(new Platform(29, 2, 0.10))
+		// this.game.sprites.push(new Spike(new Vector([ 30, 0.45 ])))
+		// this.game.sprites.push(new Platform(31, 2, 0.15))
+		// this.game.sprites.push(new Spike(new Vector([ 32, 0.40 ])))
+		// this.game.sprites.push(new Platform(33, 2, 0.20))
+		// this.game.sprites.push(new Spike(new Vector([ 34, 0.35 ])))
 
 		// this.game.sprites.push(new Spike(new Vector([ 6, 0.55 ])))
 		// this.game.sprites.push(new Platform(8, 4, 0.05))
@@ -59,6 +68,6 @@ class LevelNostalgia extends Level {
 	}
 
 	onLoaded() {
-		this.song.setVolume(0.1)
+
 	}
 }
