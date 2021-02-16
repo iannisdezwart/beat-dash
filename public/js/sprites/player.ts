@@ -2,24 +2,22 @@ class Player extends Sprite {
 	game: Game
 
 	pos: Vector
-	vel: number
-	acc: number
 
 	gravityMultiplier = 1
-	jumpCooldown = 0
+	isJumping = false
+	jumpTrajectory: JumpTrajectory
+	angle = 0
 
 	static radius = 0.02
 	static gravity = 0.001
-	static leftOffset = 0.1
+	static leftOffset = 0.15
 	static leftDelay = 0.5
-	static jumpAcc = 0.015
+	static jumpAcc = 0.02
 
 	constructor(game: Game) {
 		super()
 		this.game = game
 		this.pos = new Vector([ 0, Floor.y ])
-		this.vel = 0
-		this.acc = 0
 
 		this.game.keyboard.onPress('KeyW', () => {
 			this.gravityMultiplier *= -1
@@ -42,12 +40,20 @@ class Player extends Sprite {
 		return this.pos.y + Player.radius
 	}
 
-	move(newAcc: number, dt: number) {
-		this.acc += Player.gravity * this.gravityMultiplier
-		this.vel += this.acc
-		this.pos.y += this.vel * dt * 100
+	move() {
 		this.pos.x = this.game.scroll + Player.leftOffset
-		this.acc = newAcc
+
+		if (this.isJumping) {
+			this.pos.y = this.jumpTrajectory.getY(this.pos.x)
+			this.angle = this.jumpTrajectory.playerRotation(this.pos.x)
+		} else {
+			this.angle = 0
+		}
+	}
+
+	jump() {
+		this.isJumping = true
+		this.jumpTrajectory = new JumpTrajectory(this)
 	}
 
 	draw(game: Game) {
@@ -56,17 +62,18 @@ class Player extends Sprite {
 		game.fillRect(topLeft, bottomRight, '#ff006e')
 	}
 
-	render(game: Game, dt: number) {
-		let newAcc = 0
-
-		if (this.jumpCooldown > 0) this.jumpCooldown--
-
-		if (game.keyboard.isPressed('Space') && this.isOnFloor() && this.jumpCooldown == 0) {
-			newAcc -= Player.jumpAcc * this.gravityMultiplier
-			this.jumpCooldown = 15
+	render(game: Game) {
+		if (game.keyboard.isPressed('Space') && !this.isJumping && this.isOnFloor()) {
+			this.jump()
 		}
 
-		this.move(newAcc, dt)
+		// Useful for debugging
+
+		if (this.isJumping) {
+			this.jumpTrajectory.render()
+		}
+
+		this.move()
 		this.collision()
 		this.draw(game)
 	}
@@ -103,5 +110,96 @@ class Player extends Sprite {
 
 	kill() {
 		console.log('you died')
+	}
+}
+
+class JumpTrajectory {
+	startingPos: Vector
+	game: Game
+	impactX: number
+
+	static width = 0.75
+	static height = 0.15
+
+	constructor(player: Player) {
+		this.startingPos = player.pos.copy()
+		this.game = player.game
+		this.impactX = this.calcImpactX()
+
+		console.log('created jump trajectory, impactX():', this.impactX)
+	}
+
+	getY(x: number) {
+		const dx = x - this.startingPos.x
+		return 4 * JumpTrajectory.height / (JumpTrajectory.width) ** 2 * dx * (dx - JumpTrajectory.width) + this.startingPos.y
+	}
+
+	playerRotation(x: number) {
+		const xProgress = x - this.startingPos.x
+		const xFinal = this.impactX - this.startingPos.x
+		const ratio = xProgress / xFinal
+
+		return ratio < 1 ? ratio : 1
+	}
+
+	calcImpactX() {
+		const dx = 0.005
+		const sprites = this.game.sprites
+		let x = this.startingPos.x + dx
+
+		while (true) {
+			for (let sprite of sprites) {
+				if (
+					(sprite instanceof Platform || sprite instanceof Spike
+					|| sprite instanceof Floor || sprite instanceof Ceiling)
+					&& sprite.isInside(new Vector([ x, this.getY(x) ]))
+				) {
+					return x
+				}
+			}
+
+			x += dx
+		}
+	}
+
+	render() {
+		const ctx = this.game.ctx
+		const v = new Vector([ 0, 0 ])
+		const dx = 0.005
+		let x = this.startingPos.x + dx
+
+		// Draw trajectory parabola
+
+		ctx.beginPath()
+		ctx.strokeStyle = '#ffffff'
+
+		v.x = x
+		v.y = this.getY(x)
+		let tr = this.game.translate(v)
+		ctx.moveTo(tr.x, tr.y)
+
+		for (; x < this.startingPos.x + JumpTrajectory.width; x += dx) {
+			v.x = x
+			v.y = this.getY(x)
+			tr = this.game.translate(v)
+			ctx.lineTo(tr.x, tr.y)
+		}
+
+		ctx.stroke()
+		ctx.closePath()
+
+		// Draw impact point
+
+		const impactX = this.impactX
+		const impactY = this.getY(impactX)
+
+		ctx.beginPath()
+		ctx.fillStyle = '#ff0000'
+
+		tr = this.game.translate(new Vector([ impactX, impactY ]))
+		ctx.arc(tr.x, tr.y, 10, 0, 2 * Math.PI)
+		ctx.fill()
+
+		ctx.closePath()
 	}
 }
