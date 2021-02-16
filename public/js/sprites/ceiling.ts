@@ -10,10 +10,14 @@ class Ceiling extends Sprite {
 			new Vector([ game.scroll + Game.width, Ceiling.y ]), '#fb5607')
 	}
 
+	isInside(pos: Vector) {
+		return pos.y <= Ceiling.y
+	}
+
 	collision(player: Player) {
 		if (player.top() <= Ceiling.y) {
 			player.pos.y = Ceiling.y + Player.radius
-			player.vel = 0
+			player.isJumping = false
 		}
 	}
 }

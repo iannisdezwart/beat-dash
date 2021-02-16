@@ -35,6 +35,15 @@ class Platform extends Sprite {
 		game.fillRect(this.topLeft, this.bottomRight, '#3a86ff')
 	}
 
+	isInside(pos: Vector) {
+		const left = this.topLeft.x
+		const right = this.bottomRight.x
+		const top = this.topLeft.y
+		const bottom = this.bottomRight.y
+
+		return (pos.x >= left && pos.x <= right && pos.y >= top && pos.y <= bottom)
+	}
+
 	collision(player: Player) {
 		// If the player is within the x positions of the platform
 
@@ -55,7 +64,7 @@ class Platform extends Sprite {
 
 				if (player.bottom() > this.topLeft.y && !this.onCeiling) {
 					player.pos.y = this.topLeft.y - Player.radius
-					player.vel = 0
+					player.isJumping = false
 				}
 			}
 
@@ -72,7 +81,7 @@ class Platform extends Sprite {
 
 				if (player.top() < this.bottomRight.y && this.onCeiling) {
 					player.pos.y = this.bottomRight.y + Player.radius
-					player.vel = 0
+					player.isJumping = false
 				}
 			}
 

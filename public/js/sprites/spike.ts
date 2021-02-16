@@ -38,13 +38,32 @@ class Spike extends Sprite {
 	}
 
 	render(game: Game) {
-
-
 		game.fillPolygon([
 			new Vector([ this.left(), this.bottom() ]),
 			new Vector([ this.middle(), this.top() ]),
 			new Vector([ this.right(), this.bottom() ]),
 		], this.colour)
+	}
+
+	isInside(pos: Vector) {
+		if (pos.x < this.left() || pos.x > this.right()) return false
+		if (pos.y < this.top() || pos.y > this.bottom()) return false
+
+		// Check left half
+
+		if (pos.x < this.middle()) {
+			const minY = this.bottom() + Spike.slope * (pos.x - this.left())
+			if (pos.y > minY) return true
+			return false
+		}
+
+		// Check right half
+
+		else {
+			const minY = this.top() - Spike.slope * (this.right() - pos.x)
+			if (pos.y > minY) return true
+			return false
+		}
 	}
 
 	collision(player: Player) {

@@ -10,10 +10,14 @@ class Floor extends Sprite {
 			new Vector([ game.scroll + Game.width, Game.height ]), '#fb5607')
 	}
 
+	isInside(pos: Vector) {
+		return pos.y >= Floor.y
+	}
+
 	collision(player: Player) {
 		if (player.bottom() >= Floor.y) {
 			player.pos.y = Floor.y - Player.radius
-			player.vel = 0
+			player.isJumping = false
 		}
 	}
 }
