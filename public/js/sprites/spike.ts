@@ -1,16 +1,18 @@
 class Spike extends Sprite {
 	pos: Vector
 	onCeiling: boolean
+	colour: string
 
 	static width = 0.05
 	static height = 0.05
 	static get slope() { return Spike.height / (Spike.width / 2) }
 
-	constructor(pos: Vector, onCeiling = false) {
+	constructor(pos: Vector, onCeiling = false, colour = '#8338ec') {
 		super()
 		this.pos = pos
 		this.pos.x += Player.leftDelay
 		this.onCeiling = onCeiling
+		this.colour = colour
 	}
 
 	left() {
@@ -42,7 +44,7 @@ class Spike extends Sprite {
 			new Vector([ this.left(), this.bottom() ]),
 			new Vector([ this.middle(), this.top() ]),
 			new Vector([ this.right(), this.bottom() ]),
-		], '#8338ec')
+		], this.colour)
 	}
 
 	collision(player: Player) {
