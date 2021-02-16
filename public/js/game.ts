@@ -3,7 +3,6 @@ class Game {
 	ctx: CanvasRenderingContext2D
 	level: Level
 	beatVisualiser: BeatVisualiser
-	intervalID: number
 	isRendering = false
 
 	keyboard = new Keyboard()
@@ -15,9 +14,15 @@ class Game {
 	prevScroll = -Infinity
 	scroll = 0
 	bps: number
+
+	fpsArray = Array(Game.fpsUpdateInterval).fill(Infinity)
+	addFPS(fps: number) { this.fpsArray.shift(), this.fpsArray[Game.fpsUpdateInterval - 1] = fps }
+	fpsArrayCounter = 0
+
 	lastFrameTime = 0
 
 	static fps = 60
+	static fpsUpdateInterval = 5
 	static width = 1
 	static height = 0.6
 
@@ -52,7 +57,7 @@ class Game {
 		this.isRendering = true
 		this.level.song.play()
 		document.querySelector<HTMLDivElement>('#menu').classList.add('invisible')
-		this.nextFrame(0)
+		this.nextFrame()
 	}
 
 	pause() {
@@ -60,24 +65,44 @@ class Game {
 		this.level.song.pause()
 		document.querySelector<HTMLButtonElement>('#play-button').innerText = 'Continue'
 		document.querySelector<HTMLDivElement>('#menu').classList.remove('invisible')
-		clearInterval(this.intervalID)
 	}
 
-	nextFrame(delay: number) {
-		this.intervalID = setTimeout(() => {
-			this.update()
+	nextFrame() {
+		this.update()
+
+		// Calculate render duration
+
+		const now = performance.now()
+		const renderDuration = now - this.lastFrameTime
+		this.lastFrameTime = now
+
+		// Add current FPS to the FPS array
+
+		const fps = 1000 / renderDuration
+		this.addFPS(fps)
+
+		if (this.fpsArrayCounter++ == Game.fpsUpdateInterval) {
+			this.fpsArrayCounter = 0
+
+			// Calculate the mean FPS of the FPS array
+
+			let meanFPS = 0
+
+			for (let i = 0; i < Game.fpsUpdateInterval; i++) {
+				meanFPS += this.fpsArray[i]
+			}
+
+			meanFPS /= Game.fpsUpdateInterval
 
 			// Render FPS counter
 
-			const renderDuration = performance.now() - this.lastFrameTime
-			const frameDelay = (1000 / Game.fps - renderDuration)
-			document.querySelector<HTMLDivElement>('#fps-counter').innerHTML
-				= (1000 / frameDelay).toFixed(1) + ' FPS'
+			const fpsCounter = document.querySelector<HTMLDivElement>('#fps-counter')
+			fpsCounter.innerHTML = meanFPS.toFixed(1) + ' FPS'
+		}
 
-			// Schedule the next frame
+		// Schedule the next frame
 
-			this.nextFrame(frameDelay)
-		}, delay)
+		requestAnimationFrame(() => this.nextFrame())
 	}
 
 	resize() {
@@ -112,11 +137,8 @@ class Game {
 
 		// Render sprites
 
-		const now = performance.now()
-		const dt = (now - this.lastFrameTime) / 1000
-
 		for (let sprite of this.sprites) {
-			sprite.render(this, dt)
+			sprite.render(this)
 		}
 
 		// Render audio and beat visualisers
@@ -129,7 +151,6 @@ class Game {
 		}
 
 		this.prevScroll = this.scroll
-		this.lastFrameTime = now
 	}
 
 	beginPath() {
