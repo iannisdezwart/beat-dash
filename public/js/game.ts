@@ -3,7 +3,9 @@ class Game {
 	ctx: CanvasRenderingContext2D
 	level: Level
 	beatVisualiser: BeatVisualiser
+	audioVisualiser: AudioVisualiser
 	isRendering = false
+	active = false
 
 	keyboard = new Keyboard()
 
@@ -32,8 +34,6 @@ class Game {
 		this.level = level
 		this.bps = level.bpm / 60
 
-		this.beatVisualiser = new BeatVisualiser('beat-visualiser', this.bps)
-
 		this.resize()
 
 		addEventListener('resize', () => this.resize())
@@ -53,7 +53,15 @@ class Game {
 		this.scroll = -Player.leftOffset
 	}
 
+	setupVisualisers() {
+		this.level.song.setupAnalyser()
+		this.beatVisualiser = new BeatVisualiser('beat-visualiser', this.bps)
+		this.audioVisualiser = new AudioVisualiser('audio-visualiser', this.level.song)
+	}
+
 	start() {
+		if (!this.active) this.setupVisualisers()
+
 		this.isRendering = true
 		this.level.song.play()
 		document.querySelector<HTMLDivElement>('#menu').classList.add('invisible')
@@ -143,14 +151,63 @@ class Game {
 
 		// Render audio and beat visualisers
 
-		this.level.audioVisualiser.render()
+		this.audioVisualiser.render()
 		this.beatVisualiser.render()
 
 		if (Math.floor(this.prevScroll) != Math.floor(this.scroll)) {
 			this.beatVisualiser.beat()
 		}
 
+		// Update song time
+
+		this.updateSongProgress()
+
+		// Debug render next 4th beat
+
+		this.renderNextBeatLine()
+
 		this.prevScroll = this.scroll
+	}
+
+	renderNextBeatLine() {
+		if (!database.debugEnabled) return
+
+		const phase = this.scroll / 4 - Math.floor(this.scroll / 4)
+		const nextBeat = 4 * (Math.floor(this.scroll / 4) + (phase < 0.1 ? 0 : 1))
+		const from = new Vector([ nextBeat + Player.leftOffset, Ceiling.y ])
+		const to = new Vector([ nextBeat + Player.leftOffset, Floor.y ])
+
+		this.strokeLine(from, to, 10, '#444')
+	}
+
+	updateSongProgress() {
+		const formatTime = (seconds: number) => {
+			seconds = Math.floor(seconds)
+
+			const min = Math.floor(seconds / 60)
+			const sec = seconds - 60 * min
+			const m = min.toString()
+			const ss = sec.toString().padStart(2, '0')
+
+			return `${ m }:${ ss }`
+		}
+
+		const timeEl = document.querySelector<HTMLDivElement>('#song-time')
+		const time = this.level.song.time()
+		const duration = this.level.song.duration()
+		timeEl.innerText = `${ formatTime(time) } / ${ formatTime(duration) }`
+
+		const progressBar = document.querySelector<HTMLDivElement>('#song-progress')
+		const progress = -100 * (1 - time / duration)
+		progressBar.style.transform = `translateX(${ progress }%)`
+	}
+
+	pulseBackgroundColour(colour: string) {
+		document.body.style.backgroundColor = colour
+
+		setTimeout(() => {
+			document.body.style.backgroundColor = '#111'
+		}, 300)
 	}
 
 	beginPath() {
@@ -182,6 +239,56 @@ class Game {
 		this.closePath()
 	}
 
+	fillSkewedSquare(centre: Vector, radius: number, angle: number, colour: string) {
+		const rotationVector = new Vector([ 0, 0 ])
+
+		// Top left corner
+
+		rotationVector.x = -radius
+		rotationVector.y = -radius
+
+		rotationVector.rot(angle)
+		const corner1 = this.translate(
+			new Vector([ centre.x + rotationVector.x, centre.y + rotationVector.y ])
+		)
+
+		// Top right corner
+
+		rotationVector.rot(Math.PI / 2)
+		const corner2 = this.translate(
+			new Vector([ centre.x + rotationVector.x, centre.y + rotationVector.y ])
+		)
+
+		// Bottom right corner
+
+		rotationVector.rot(Math.PI / 2)
+		const corner3 = this.translate(
+			new Vector([ centre.x + rotationVector.x, centre.y + rotationVector.y ])
+		)
+
+		// Bottom left corner
+
+		rotationVector.rot(Math.PI / 2)
+		const corner4 = this.translate(
+			new Vector([ centre.x + rotationVector.x, centre.y + rotationVector.y ])
+		)
+
+		// Draw the square
+
+		this.beginPath()
+
+		this.ctx.moveTo(corner1.x, corner1.y)
+		this.ctx.lineTo(corner2.x, corner2.y)
+		this.ctx.lineTo(corner3.x, corner3.y)
+		this.ctx.lineTo(corner4.x, corner4.y)
+		this.ctx.lineTo(corner1.x, corner1.y)
+
+		this.ctx.fillStyle = colour
+		this.ctx.fill()
+
+		this.closePath()
+	}
+
 	fillPolygon(points: Vector[], colour: string) {
 		this.beginPath()
 		this.ctx.fillStyle = colour
@@ -196,5 +303,22 @@ class Game {
 
 		this.ctx.fill()
 		this.closePath()
+	}
+
+	strokeLineAbs(from: Vector, to: Vector, width: number, colour: string) {
+		this.beginPath()
+
+		this.ctx.moveTo(from.x, from.y)
+		this.ctx.lineTo(to.x, to.y)
+
+		this.ctx.lineWidth = width
+		this.ctx.strokeStyle = colour
+		this.ctx.stroke()
+
+		this.closePath()
+	}
+
+	strokeLine(from: Vector, to: Vector, width: number, colour: string) {
+		this.strokeLineAbs(this.translate(from), this.translate(to), width, colour)
 	}
 }
