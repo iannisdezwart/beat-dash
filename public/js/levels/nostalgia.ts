@@ -1,19 +1,206 @@
 class LevelNostalgia extends Level {
 	constructor() {
-		super('/songs/tobu-nostalgia-short.mp3', 128)
-		// super('/songs/ephixa-laura-brehm-losing-you.mp3', 124)
-		// super('/songs/phantom-sage-away-feat-byndy-ncs-release.mp3', 140)
-		// super('/songs/flight-facilities-crave-you-adventure-club-dubstep-remix.mp3', 140)
+		// super('/songs/tobu-nostalgia-short.mp3', 'Tobu - Nostalgia (short)', 128)
+		super('/songs/tobu-nostalgia.mp3', 'Tobu - Nostalgia', 128)
+		// super('/songs/ephixa-laura-brehm-losing-you.mp3', 'Ephixa & Laura Brehm - Losing You', 124)
+		// super('/songs/phantom-sage-away-feat-byndy-ncs-release.mp3', 'Phantom Sage - Away (ft. Byndy)', 140)
+		// super('/songs/flight-facilities-crave-you-adventure-club-dubstep-remix.mp3', 'Flight Facilities - Crave You (Adventure Club remix)', 140)
 	}
 
 	loadLevel() {
 		this.game.sprites.push(new Floor())
 		this.game.sprites.push(new Ceiling())
 
-		for (let i = 0; i < 1000; i++) {
-			const colour = (i % 2 == 0) ? '#ff0000' : '#0000ff'
-			this.game.sprites.push(new Spike(new Vector([ i, 0.55 ]), false, colour))
-		}
+		let beat = -4
+
+		// this.game.sprites.push(new GravityInvertor(4))
+
+		// Intro
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.spike2(this.game, beat += 4)
+
+		// Warmup
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.steps2(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.steps2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		// Build up
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		// Continuation of build up
+
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+
+		// Drop
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		// Continuation of drop
+
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		// Cooldown
+
+		beat += 4
+		beat += 4
+		beat += 4
+		beat += 4
+
+		beat += 4
+		beat += 4
+		beat += 4
+		beat += 4
+
+		// Intro
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.spike2(this.game, beat += 4)
+
+		// Warmup
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.steps2(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		landscapeTemplates.steps2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		// Build up
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
+		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+
+		// Continuation of build up
+
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		landscapeTemplates.spikeScore4(this.game, beat += 4)
+
+		// Drop
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.spike4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		// Continuation of drop
+
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+		landscapeTemplates.stepsScore4(this.game, beat += 4)
+		landscapeTemplates.score4(this.game, beat += 4)
+
+		// Chill
+
+		// landscapeTemplates.score2(this.game, beat += 4)
+		// landscapeTemplates.platformSpike2(this.game, beat += 4)
+		// landscapeTemplates.score2(this.game, beat += 4)
+		// landscapeTemplates.platformSpike2(this.game, beat += 4)
+
+		// landscapeTemplates.score2(this.game, beat += 4)
+		// landscapeTemplates.platformSpike2(this.game, beat += 4)
+		// landscapeTemplates.score2(this.game, beat += 4)
+		// landscapeTemplates.platformSpike2(this.game, beat += 4)
+
+		// More Chill
+
+		
+
+		// We'll see
+
+		// for (let i = 1; i < 1000; i += 2) {
+		// 	const colour = (i % 2 == 0) ? '#ff0000' : '#0000ff'
+		// 	this.game.sprites.push(new Spike(new Vector([ i, 0.55 ]), false, colour))
+		// }
+
+		// for (let i = 0; i < 1000; i += 2) {
+		// 	this.game.sprites.push(new ScoreBlock(new Vector([ i, 0.55 ])))
+		// }
+
+		// for (let i = 1; i < 1000; i += 2) {
+		// 	this.game.sprites.push(new ScoreBlock(new Vector([ i, 0.55 ]), false))
+		// }
 
 		// this.game.sprites.push(new Spike(new Vector([ 1, 0.55 ])))
 		// this.game.sprites.push(new Spike(new Vector([ 3, 0.55 ])))
