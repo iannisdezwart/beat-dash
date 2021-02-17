@@ -18,6 +18,7 @@ class Floor extends Sprite {
 		if (player.bottom() >= Floor.y) {
 			player.pos.y = Floor.y - Player.radius
 			player.isJumping = false
+			player.stopFalling()
 		}
 	}
 }

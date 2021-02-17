@@ -18,6 +18,7 @@ class Ceiling extends Sprite {
 		if (player.top() <= Ceiling.y) {
 			player.pos.y = Ceiling.y + Player.radius
 			player.isJumping = false
+			player.stopFalling()
 		}
 	}
 }

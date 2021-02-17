@@ -3,9 +3,13 @@ class Spike extends Sprite {
 	onCeiling: boolean
 	colour: string
 
+	playerHit = false
+
 	static width = 0.05
 	static height = 0.05
 	static get slope() { return Spike.height / (Spike.width / 2) }
+
+	static hitPenalty = 5
 
 	constructor(pos: Vector, onCeiling = false, colour = '#8338ec') {
 		super()
@@ -70,7 +74,8 @@ class Spike extends Sprite {
 		// If the player is within the x values of this spike
 
 		if (
-			player.right() >= this.left()
+			!this.playerHit
+			&& player.right() >= this.left()
 			&& player.left() <= this.right()
 		) {
 			// If gravity is normal
@@ -79,21 +84,30 @@ class Spike extends Sprite {
 				// If the player should be above the spike
 
 				if (player.left() <= this.middle() && player.right() >= this.middle()) {
-					if (player.bottom() >= this.top()) player.kill()
+					if (player.bottom() >= this.top()) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
 				}
 
 				// If the player is on the left side of the spike
 
 				else if (player.right() < this.middle()) {
 					const minY = this.bottom() + Spike.slope * (player.right() - this.left())
-					if (player.bottom() > minY) player.kill()
+					if (player.bottom() > minY) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
 				}
 
 				// If the player is on the right side of the spike
 
 				else {
 					const minY = this.top() - Spike.slope * (this.right() - player.left())
-					if (player.bottom() > minY) player.kill()
+					if (player.bottom() > minY) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
 				}
 			}
 

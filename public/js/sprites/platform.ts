@@ -8,6 +8,9 @@ class Platform extends Sprite {
 	bottomRight: Vector
 
 	playerPassed = false
+	playerHit = false
+
+	static hitPenalty = 5
 
 	constructor(x: number, width: number, height: number, onCeiling = false) {
 		super()
@@ -56,8 +59,9 @@ class Platform extends Sprite {
 			if (player.gravityMultiplier >= 0) {
 				// If the player collides with the left of the platform, kill them
 
-				if (!this.playerPassed && player.bottom() > this.topLeft.y) {
-					player.kill()
+				if (!this.playerPassed && !this.playerHit && player.bottom() > this.topLeft.y) {
+					player.subtractScore(Platform.hitPenalty)
+					this.playerHit = true
 				}
 
 				// If this is a floor platform, put the player on top of the platform
@@ -65,6 +69,7 @@ class Platform extends Sprite {
 				if (player.bottom() > this.topLeft.y && !this.onCeiling) {
 					player.pos.y = this.topLeft.y - Player.radius
 					player.isJumping = false
+					player.stopFalling()
 				}
 			}
 
@@ -73,8 +78,9 @@ class Platform extends Sprite {
 			else {
 				// If the player collides with the left of the platform, kill them
 
-				if (!this.playerPassed && player.top() < this.bottomRight.y) {
-					player.kill()
+				if (!this.playerPassed && !this.playerHit && player.top() < this.bottomRight.y) {
+					player.subtractScore(Platform.hitPenalty)
+					this.playerHit = true
 				}
 
 				// If this is a ceiling platform, put the player on the bottom of the platform
@@ -82,6 +88,7 @@ class Platform extends Sprite {
 				if (player.top() < this.bottomRight.y && this.onCeiling) {
 					player.pos.y = this.bottomRight.y + Player.radius
 					player.isJumping = false
+					player.stopFalling()
 				}
 			}
 

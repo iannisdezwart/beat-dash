@@ -2,17 +2,21 @@ class Player extends Sprite {
 	game: Game
 
 	pos: Vector
+	fallVel = 0
+	fallAcc = 0
 
 	gravityMultiplier = 1
 	isJumping = false
 	jumpTrajectory: JumpTrajectory
 	angle = 0
 
+	score = 0
+
 	static radius = 0.02
 	static gravity = 0.001
+	static maxFallVel = 0.1
 	static leftOffset = 0.15
 	static leftDelay = 0.5
-	static jumpAcc = 0.02
 
 	constructor(game: Game) {
 		super()
@@ -43,11 +47,20 @@ class Player extends Sprite {
 	move() {
 		this.pos.x = this.game.scroll + Player.leftOffset
 
+		// If jumping, move according to the jump trajectory
+
 		if (this.isJumping) {
+			this.fallAcc = 0
+			this.fallVel = 0
 			this.pos.y = this.jumpTrajectory.getY(this.pos.x)
-			this.angle = this.jumpTrajectory.playerRotation(this.pos.x)
-		} else {
+			this.angle = this.jumpTrajectory.playerRotation(this.pos.x) * this.gravityMultiplier
+		}
+
+		// If not jumping, fall
+
+		else {
 			this.angle = 0
+			this.fall()
 		}
 	}
 
@@ -56,10 +69,34 @@ class Player extends Sprite {
 		this.jumpTrajectory = new JumpTrajectory(this)
 	}
 
+	fall() {
+		this.fallAcc += this.gravityMultiplier * Player.gravity
+		this.fallVel += this.fallAcc
+		this.pos.y += this.fallVel
+	}
+
+	stopFalling() {
+		this.fallAcc = 0
+		this.fallVel = 0
+	}
+
 	draw(game: Game) {
-		const topLeft = new Vector([ this.left(), this.top() ])
-		const bottomRight = new Vector([ this.right(), this.bottom() ])
-		game.fillRect(topLeft, bottomRight, '#ff006e')
+		const centre = new Vector([
+			(this.left() + this.right()) / 2,
+			(this.top() + this.bottom()) / 2
+		])
+
+		game.fillSkewedSquare(centre, Player.radius, this.angle, '#ff006e')
+	}
+
+	addScore(score: number) {
+		this.score += score
+		this.game.pulseBackgroundColour('#3a3')
+	}
+
+	subtractScore(score: number) {
+		this.score -= score
+		this.game.pulseBackgroundColour('#a33')
 	}
 
 	render(game: Game) {
@@ -67,7 +104,7 @@ class Player extends Sprite {
 			this.jump()
 		}
 
-		// Useful for debugging
+		// Debug render jump trajectory
 
 		if (this.isJumping) {
 			this.jumpTrajectory.render()
@@ -76,6 +113,11 @@ class Player extends Sprite {
 		this.move()
 		this.collision()
 		this.draw(game)
+
+		// Update score
+
+		const scoreCounter = document.querySelector<HTMLDivElement>('#score-counter')
+		scoreCounter.innerText = `Score: ${ this.score }`
 	}
 
 	isOnFloor() {
@@ -107,14 +149,11 @@ class Player extends Sprite {
 			}
 		}
 	}
-
-	kill() {
-		console.log('you died')
-	}
 }
 
 class JumpTrajectory {
 	startingPos: Vector
+	player: Player
 	game: Game
 	impactX: number
 
@@ -123,15 +162,15 @@ class JumpTrajectory {
 
 	constructor(player: Player) {
 		this.startingPos = player.pos.copy()
+		this.player = player
 		this.game = player.game
 		this.impactX = this.calcImpactX()
-
-		console.log('created jump trajectory, impactX():', this.impactX)
 	}
 
 	getY(x: number) {
+		const gravityDirection = this.player.gravityMultiplier
 		const dx = x - this.startingPos.x
-		return 4 * JumpTrajectory.height / (JumpTrajectory.width) ** 2 * dx * (dx - JumpTrajectory.width) + this.startingPos.y
+		return gravityDirection * 4 * JumpTrajectory.height / (JumpTrajectory.width) ** 2 * dx * (dx - JumpTrajectory.width) + this.startingPos.y
 	}
 
 	playerRotation(x: number) {
@@ -139,7 +178,7 @@ class JumpTrajectory {
 		const xFinal = this.impactX - this.startingPos.x
 		const ratio = xProgress / xFinal
 
-		return ratio < 1 ? ratio : 1
+		return (ratio < 1 ? ratio : 1) * Math.PI / 2
 	}
 
 	calcImpactX() {
@@ -163,6 +202,8 @@ class JumpTrajectory {
 	}
 
 	render() {
+		if (!database.debugEnabled) return
+
 		const ctx = this.game.ctx
 		const v = new Vector([ 0, 0 ])
 		const dx = 0.005
@@ -178,13 +219,15 @@ class JumpTrajectory {
 		let tr = this.game.translate(v)
 		ctx.moveTo(tr.x, tr.y)
 
-		for (; x < this.startingPos.x + JumpTrajectory.width; x += dx) {
+		while (x < this.impactX) {
 			v.x = x
 			v.y = this.getY(x)
 			tr = this.game.translate(v)
 			ctx.lineTo(tr.x, tr.y)
+			x += dx
 		}
 
+		ctx.lineWidth = 3
 		ctx.stroke()
 		ctx.closePath()
 
