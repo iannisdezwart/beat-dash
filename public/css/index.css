@@ -12,12 +12,13 @@ body {
 	justify-content: center;
 	min-height: 100vh;
 	background-color: #111;
+	transition: background-color 300ms ease;
 }
 
 #beat-visualiser {
 	position: absolute;
 	pointer-events: none;
-	opacity: 1;
+	opacity: 0.8;
 }
 
 #audio-visualiser {
@@ -38,6 +39,76 @@ body {
 	margin: 1em;
 	font-family: monospace;
 	font-size: 2em;
+}
+
+#score-counter {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 1em;
+	font-family: monospace;
+	font-size: 2em;
+}
+
+#song-details {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+}
+
+#song-title {
+	font-size: 2em;
+}
+
+#song-time {
+	font-family: monospace;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#song-progress-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 10px;
+	width: 100vw;
+}
+
+#song-progress {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 10px;
+	width: 100vw;
+	transform: translateX(-100%);
+	opacity: 0.5;
+	background-color: #444;
+}
+
+#loading-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	background-color: #111;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 300ms ease, visibility 300ms;
+}
+
+#loading-screen.invisible {
+	opacity: 0;
+	visibility: hidden;
 }
 
 #menu {
@@ -63,6 +134,10 @@ body {
 	visibility: hidden;
 }
 
+.centered {
+	text-align: center;
+}
+
 h1 {
 	font-size: 3em;
 	margin: .5em;
@@ -74,18 +149,15 @@ button {
 	font-size: 2em;
 	font-weight: 600;
 	color: #fff;
-	background-color: #333;
 	border-radius: .5em;
+	outline: none;
+	background-color: #333;
 	transition: background-color 300ms ease;
 }
 
-button:hover {
+button:hover, button:focus {
 	cursor: pointer;
 	background-color: #444;
-}
-
-button:focus {
-	outline: none;
 }
 
 .slider {
@@ -117,7 +189,7 @@ button:focus {
 	transition: background-color 300ms ease;
 }
 
-.slider:hover input::-webkit-slider-thumb {
+.slider:hover input::-webkit-slider-thumb, .slider input:focus::-webkit-slider-thumb {
 	background-color: #444;
 }
 
@@ -129,7 +201,7 @@ button:focus {
 	transition: background-color 300ms ease;
 }
 
-.slider:hover input::-moz-range-thumb {
+.slider:hover input::-moz-range-thumb, .slider input:focus::-moz-range-thumb {
 	background-color: #444;
 }
 
@@ -156,7 +228,7 @@ button:focus {
 	transition: background-color 300ms ease;
 }
 
-.toggle:hover input {
+.toggle:hover input, .toggle input:focus {
 	background-color: #c55;
 	cursor: pointer;
 }
@@ -165,6 +237,6 @@ button:focus {
 	background-color: #3a3;
 }
 
-.toggle:hover input:checked {
+.toggle:hover input:checked, .toggle input:focus:checked {
 	background-color: #5c5;
 }
