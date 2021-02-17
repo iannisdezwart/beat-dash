@@ -5,12 +5,13 @@ class BeatVisualiser {
 	expandingFrames: number
 	beatCount = 4
 
+	static dt = 0.5
 	static colours = [ '#111111', '#171717', '#111111', '#171717' ]
 
 	constructor(canvasID: string, bps: number) {
 		this.canvas = document.getElementById(canvasID) as HTMLCanvasElement
 		this.ctx = this.canvas.getContext('2d')
-		this.maxExpandingFrames = Math.floor(1 / bps * Game.fps / 4)
+		this.maxExpandingFrames = Math.floor(1 / bps * Game.fps * BeatVisualiser.dt)
 		this.expandingFrames = this.maxExpandingFrames
 
 		this.resize()
