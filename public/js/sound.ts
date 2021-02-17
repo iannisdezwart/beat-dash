@@ -31,7 +31,7 @@ class Sound {
 				return
 			}
 
-			this.audio.oncanplay = () => resolve()
+			this.audio.addEventListener('canplay', () => resolve())
 		})
 	}
 
@@ -78,20 +78,23 @@ class Sound {
 		this.audioContext = new AudioContext()
 		this.audioSource = this.audioContext.createMediaStreamSource(this.audioStream)
 		this.analyser = this.audioContext.createAnalyser()
-		this.analyser.fftSize = 1 << 13
+		this.analyser.fftSize = AudioVisualiser.fftSize
+		this.analyser.maxDecibels = AudioVisualiser.maxDecibels
+		this.analyser.minDecibels = AudioVisualiser.minDecibels
 		this.audioSource.connect(this.analyser)
 	}
 
-	getFrequencyArray(upperFreq = 2000) {
+	getFrequencyArray(lowerFreq = 20, upperFreq = 2000) {
 		const maxFreq = this.audioContext.sampleRate / 2
 		const frequencyBinCount = this.analyser.frequencyBinCount
+		const minFreqBinCount = Math.floor(lowerFreq / maxFreq * frequencyBinCount)
 		const maxFreqBinCount = Math.floor(upperFreq / maxFreq * frequencyBinCount)
 		const array = new Uint8Array(maxFreqBinCount)
 		this.analyser.getByteFrequencyData(array)
-		return array
+		return array.subarray(minFreqBinCount, maxFreqBinCount)
 	}
 
-	static getFile(fileName: string, progressCallback: (e: ProgressEvent) => void) {
+	static getFile(fileName: string, progressCallback: (ratio: number) => void) {
 		return new Promise<string>((resolve, reject) => {
 			const req = new XMLHttpRequest()
 			req.responseType = 'blob'
@@ -101,7 +104,11 @@ class Sound {
 				resolve(URL.createObjectURL(req.response))
 			})
 
-			req.addEventListener('progress', progressCallback)
+			req.addEventListener('progress', e => {
+				const loaded = e.loaded
+				const total = parseInt(req.getResponseHeader('File-Size'), 10)
+				progressCallback(loaded / total)
+			})
 			req.addEventListener('error', reject)
 
 			req.send()
