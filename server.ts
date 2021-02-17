@@ -8,7 +8,9 @@ const fileExists = (path: string) => {
 
 const sendFile = (path: string, res: http.ServerResponse) => {
 	const mimeType = mimeLookup(path) || 'text/unknown'
+	const fileSize = fs.statSync(path).size
 	res.setHeader('Content-Type', mimeType)
+	res.setHeader('File-Size', fileSize)
 	fs.createReadStream(path).pipe(res)
 }
 
