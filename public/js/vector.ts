@@ -75,6 +75,16 @@ class Vector {
 		return this
 	}
 
+	rot(ang: number) {
+		const newX = this.x * Math.cos(ang) - this.y * Math.sin(ang)
+		const newY = this.x * Math.sin(ang) + this.y * Math.cos(ang)
+
+		this.x = newX
+		this.y = newY
+
+		return this
+	}
+
 	copy() {
 		return new Vector(this.values)
 	}
