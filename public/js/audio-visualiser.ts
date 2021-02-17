@@ -3,7 +3,10 @@ class AudioVisualiser {
 	ctx: CanvasRenderingContext2D
 	sound: Sound
 
-	static maxHeight = 0.2
+	static maxHeight = 0.3
+	static fftSize = 1 << 13
+	static maxDecibels = -20
+	static minDecibels = -60
 
 	constructor(canvasID: string, sound: Sound) {
 		this.canvas = document.getElementById(canvasID) as HTMLCanvasElement
@@ -25,7 +28,7 @@ class AudioVisualiser {
 			return
 		}
 
-		const frequencies = this.sound.getFrequencyArray(200)
+		const frequencies = this.sound.getFrequencyArray(20, 200)
 		const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, 0)
 
 		const translateX = (x: number) => {
