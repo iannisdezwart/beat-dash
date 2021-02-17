@@ -30,5 +30,16 @@ const database = {
 	set beatVisualiserEnabled(enabled: boolean) {
 		localStorage.setItem('beat-visualiser', enabled ? 'true' : 'false')
 		beatVisualiserInput.checked = enabled
+	},
+
+	get debugEnabled() {
+		const enabled = localStorage.getItem('debug')
+		if (enabled == null) return null
+		return enabled == 'true'
+	},
+
+	set debugEnabled(enabled: boolean) {
+		localStorage.setItem('debug', enabled ? 'true' : 'false')
+		debugInput.checked = enabled
 	}
 }

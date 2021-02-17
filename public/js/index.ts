@@ -57,8 +57,24 @@ audioVisualiserInput.addEventListener('input', () => {
 	database.audioVisualiserEnabled = enabled
 })
 
+// Debug input
+
+const debugInput = document.querySelector<HTMLInputElement>('#debug-toggle')
+
+// Set debug input to stored value
+
+if (database.debugEnabled == null) {
+	database.debugEnabled = false
+}
+
+debugInput.addEventListener('input', () => {
+	const enabled = debugInput.checked
+	database.debugEnabled = enabled
+})
+
 // JavaScript magic!
 
 database.storedVolume = database.storedVolume
 database.beatVisualiserEnabled = database.beatVisualiserEnabled
 database.audioVisualiserEnabled = database.audioVisualiserEnabled
+database.debugEnabled = database.debugEnabled
