@@ -22,6 +22,7 @@ class Game {
 	fpsArrayCounter = 0
 
 	lastFrameTime = 0
+	renderDuration = 0
 
 	static fps = 60
 	static fpsUpdateInterval = 5
@@ -81,12 +82,12 @@ class Game {
 		// Calculate render duration
 
 		const now = performance.now()
-		const renderDuration = now - this.lastFrameTime
+		this.renderDuration = now - this.lastFrameTime
 		this.lastFrameTime = now
 
 		// Add current FPS to the FPS array
 
-		const fps = 1000 / renderDuration
+		const fps = 1000 / this.renderDuration
 		this.addFPS(fps)
 
 		if (this.fpsArrayCounter++ == Game.fpsUpdateInterval) {
@@ -146,7 +147,7 @@ class Game {
 		// Render sprites
 
 		for (let sprite of this.sprites) {
-			sprite.render(this)
+			sprite.render(this, this.renderDuration)
 		}
 
 		// Render audio and beat visualisers
@@ -177,7 +178,7 @@ class Game {
 		const from = new Vector([ nextBeat + Player.leftOffset, Ceiling.y ])
 		const to = new Vector([ nextBeat + Player.leftOffset, Floor.y ])
 
-		this.strokeLine(from, to, 10, '#444')
+		this.strokeLine(from, to, 0.01, '#444')
 	}
 
 	updateSongProgress() {
@@ -319,6 +320,6 @@ class Game {
 	}
 
 	strokeLine(from: Vector, to: Vector, width: number, colour: string) {
-		this.strokeLineAbs(this.translate(from), this.translate(to), width, colour)
+		this.strokeLineAbs(this.translate(from), this.translate(to), width / this.scale, colour)
 	}
 }

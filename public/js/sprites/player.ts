@@ -46,7 +46,7 @@ class Player extends Sprite {
 		return this.pos.y + Player.radius
 	}
 
-	move() {
+	move(dt: number) {
 		this.pos.x = this.game.scroll + Player.leftOffset
 
 		// If jumping, move according to the jump trajectory
@@ -63,7 +63,7 @@ class Player extends Sprite {
 
 		else {
 			this.angle = 0
-			this.fall()
+			this.fall(dt)
 		}
 	}
 
@@ -74,14 +74,13 @@ class Player extends Sprite {
 		}
 	}
 
-	fall() {
-		this.fallAcc += this.gravityMultiplier * Player.gravity
-		this.fallVel += this.fallAcc
-		this.pos.y += this.fallVel
+	fall(dt: number) {
+		this.fallAcc = this.gravityMultiplier * Player.gravity
+		this.fallVel += this.fallAcc * dt ** 2 / 30
+		this.pos.y += this.fallVel * dt / 30
 	}
 
 	stopFalling() {
-		this.fallAcc = 0
 		this.fallVel = 0
 	}
 
@@ -104,7 +103,7 @@ class Player extends Sprite {
 		this.game.pulseBackgroundColour('#a33')
 	}
 
-	render(game: Game) {
+	render(game: Game, dt: number) {
 		if (game.keyboard.isPressed('Space') && !this.isJumping && this.isOnFloor()) {
 			this.jump()
 		}
@@ -115,7 +114,7 @@ class Player extends Sprite {
 			this.jumpTrajectory.render()
 		}
 
-		this.move()
+		this.move(dt)
 		this.collision()
 		this.draw(game)
 
