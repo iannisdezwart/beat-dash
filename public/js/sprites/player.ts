@@ -7,6 +7,7 @@ class Player extends Sprite {
 
 	gravityMultiplier = 1
 	isJumping = false
+	lastJumpEnd = -Infinity
 	jumpTrajectory: JumpTrajectory
 	angle = 0
 
@@ -17,6 +18,7 @@ class Player extends Sprite {
 	static maxFallVel = 0.1
 	static leftOffset = 0.15
 	static leftDelay = 0.5
+	static jumpCooldown = 0.15
 
 	constructor(game: Game) {
 		super()
@@ -54,6 +56,7 @@ class Player extends Sprite {
 			this.fallVel = 0
 			this.pos.y = this.jumpTrajectory.getY(this.pos.x)
 			this.angle = this.jumpTrajectory.playerRotation(this.pos.x) * this.gravityMultiplier
+			this.lastJumpEnd = this.game.scroll
 		}
 
 		// If not jumping, fall
@@ -65,8 +68,10 @@ class Player extends Sprite {
 	}
 
 	jump() {
-		this.isJumping = true
-		this.jumpTrajectory = new JumpTrajectory(this)
+		if (this.game.scroll > this.lastJumpEnd + Player.jumpCooldown) {
+			this.isJumping = true
+			this.jumpTrajectory = new JumpTrajectory(this)
+		}
 	}
 
 	fall() {
