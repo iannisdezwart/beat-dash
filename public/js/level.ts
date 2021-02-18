@@ -24,15 +24,32 @@ abstract class Level {
 
 	async load() {
 		this.showLoadingScreen()
-		this.loadLevel()
 
-		this.songURL = await Sound.getFile(this.songFileName, ratio => {
+		// Start downloading the song
+
+		const soundPromise = Sound.getFile(this.songFileName, ratio => {
 			const loadingPercentage =
 				document.querySelector<HTMLDivElement>('#loading-screen-percentage')
 
 			loadingPercentage.innerText = (ratio * 100).toFixed(1) + '%'
 		})
 
+		// Add floor and ceiling to the game
+
+		this.game.sprites.push(new Floor())
+		this.game.sprites.push(new Ceiling())
+
+		// Load the level specific sprites
+
+		this.loadLevel()
+
+		// Add the player to the level
+
+		this.game.addPlayer(new Player(this.game))
+
+		// Wait until the song finished downloading and then load it
+
+		this.songURL = await soundPromise
 		await this.loadSong()
 
 		this.removeLoadingScreen()
