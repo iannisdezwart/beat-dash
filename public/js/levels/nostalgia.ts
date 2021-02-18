@@ -17,159 +17,94 @@ class LevelNostalgia extends Level {
 
 		// Intro
 
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.spike2(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScore2,
+			MapGenerator.fourBar.alternatingSpikeScore2
+		])
 
 		// Warmup
 
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.steps2(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.steps2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.spikeScoreStepLeft2,
+			MapGenerator.fourBar.spikeScoreStepRight2
+		])
 
 		// Build up
 
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4,
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4
+		])
 
 		// Continuation of build up
 
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScore4,
+			MapGenerator.fourBar.alternatingSpikeScore4
+		])
 
 		// Drop
 
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScoreMania4,
+			MapGenerator.fourBar.alternatingSpikeScoreMania4
+		])
 
 		// Continuation of drop
 
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingStepScoreMania4,
+			MapGenerator.fourBar.alternatingStepScoreMania4
+		])
 
 		// Cooldown
 
-		beat += 4
-		beat += 4
-		beat += 4
-		beat += 4
-
-		beat += 4
-		beat += 4
-		beat += 4
-		beat += 4
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.break,
+			MapGenerator.fourBar.break
+		])
 
 		// Intro
 
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.spike2(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScore2,
+			MapGenerator.fourBar.alternatingSpikeScore2
+		])
 
 		// Warmup
 
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.steps2(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-		landscapeTemplates.steps2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.spikeScoreStepLeft2,
+			MapGenerator.fourBar.spikeScoreStepRight2
+		])
 
 		// Build up
 
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeLeftScore2(this.game, beat += 4)
-		landscapeTemplates.spikeRightScore2(this.game, beat += 4)
-
-		// Continuation of build up
-
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
-		landscapeTemplates.spikeScore4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4,
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4
+		])
 
 		// Drop
 
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.spike4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScoreMania4,
+			MapGenerator.fourBar.alternatingSpikeScoreMania4
+		])
 
 		// Continuation of drop
 
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingStepScoreMania4,
+			MapGenerator.fourBar.alternatingStepScoreMania4
+		])
 
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
-		landscapeTemplates.stepsScore4(this.game, beat += 4)
-		landscapeTemplates.score4(this.game, beat += 4)
+		// Final drop
+
+		this.mapGenerator.add(...[
+			MapGenerator.fourBar.alternatingSpikeScoreMania4,
+			MapGenerator.fourBar.alternatingSpikeScoreMania4
+		])
 
 		// Chill
 

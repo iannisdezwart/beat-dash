@@ -3,12 +3,14 @@ abstract class Level {
 	song = new Sound()
 	songURL: string
 	game: Game
+	mapGenerator: MapGenerator
 	bpm: number
 
 	constructor(songFileName: string, songTitle: string, bpm: number) {
 		this.songFileName = songFileName
 		this.bpm = bpm
 		this.game = new Game('game', this)
+		this.mapGenerator = new MapGenerator(this.game)
 		this.load()
 
 		// Render song title
