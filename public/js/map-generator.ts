@@ -149,11 +149,53 @@ class MapGenerator {
 		},
 
 		alternatingStepScoreMania4(sprites: Sprite[], beat: number) {
-			MapGenerator.oneBar.stepsScore4(sprites, beat + 4)
-			MapGenerator.oneBar.score4(sprites, beat)
-			MapGenerator.oneBar.stepsScore4(sprites, beat + 12)
-			MapGenerator.oneBar.score4(sprites, beat + 8)
+			MapGenerator.oneBar.stepsScore4(sprites, beat)
+			MapGenerator.oneBar.score4(sprites, beat + 4)
+			MapGenerator.oneBar.stepsScore4(sprites, beat + 8)
+			MapGenerator.oneBar.score4(sprites, beat + 12)
 			return 16
+		}
+	}
+
+	static eightBar = {
+		break() {
+			return 32
+		},
+
+		intro1(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.alternatingSpikeScore2(sprites, beat)
+			MapGenerator.fourBar.alternatingSpikeScore2(sprites, beat + 16)
+			return 32
+		},
+
+		warmup1(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.spikeScoreStepLeft2(sprites, beat)
+			MapGenerator.fourBar.spikeScoreStepRight2(sprites, beat + 16)
+			return 32
+		},
+
+		fakeBuildup1(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4(sprites, beat)
+			MapGenerator.fourBar.fakeBuildUpSpikeScore4(sprites, beat + 16)
+			return 32
+		},
+
+		buildup1(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.alternatingSpikeScore4(sprites, beat)
+			MapGenerator.fourBar.alternatingSpikeScore4(sprites, beat + 16)
+			return 32
+		},
+
+		drop1(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.alternatingSpikeScoreMania4(sprites, beat)
+			MapGenerator.fourBar.alternatingSpikeScoreMania4(sprites, beat + 16)
+			return 32
+		},
+
+		drop2(sprites: Sprite[], beat: number) {
+			MapGenerator.fourBar.alternatingStepScoreMania4(sprites, beat)
+			MapGenerator.fourBar.alternatingStepScoreMania4(sprites, beat + 16)
+			return 32
 		},
 	}
 }
