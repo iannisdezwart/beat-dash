@@ -27,7 +27,8 @@ class BeatVisualiser {
 
 	render() {
 		if (!database.beatVisualiserEnabled) {
-			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+			this.ctx.fillStyle = BeatVisualiser.colours[0]
+			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 			return
 		}
 
