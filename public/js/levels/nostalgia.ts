@@ -8,22 +8,20 @@ class LevelNostalgia extends Level {
 	}
 
 	loadLevel() {
-		// this.game.sprites.push(new GravityInvertor(4))
-
 		this.mapGenerator.add(...[
-			MapGenerator.eightBar.intro1,
-			MapGenerator.eightBar.warmup1,
-			MapGenerator.eightBar.fakeBuildup1,
-			MapGenerator.eightBar.buildup1,
-			MapGenerator.eightBar.drop1,
-			MapGenerator.eightBar.drop2,
-			MapGenerator.eightBar.break,
-			MapGenerator.eightBar.intro1,
-			MapGenerator.eightBar.warmup1,
-			MapGenerator.eightBar.buildup1,
-			MapGenerator.eightBar.drop1,
-			MapGenerator.eightBar.drop2,
-			MapGenerator.eightBar.drop1
+			this.mapGenerator.eightBar.intro1Invertor,
+			this.mapGenerator.eightBar.warmup1Invertor,
+			this.mapGenerator.eightBar.fakeBuildup1,
+			this.mapGenerator.eightBar.buildup1,
+			this.mapGenerator.eightBar.drop1,
+			this.mapGenerator.eightBar.drop2Invertor,
+			this.mapGenerator.eightBar.break,
+			this.mapGenerator.eightBar.intro1,
+			this.mapGenerator.eightBar.warmup1Invertor,
+			this.mapGenerator.eightBar.buildup1,
+			this.mapGenerator.eightBar.drop1,
+			this.mapGenerator.eightBar.drop2Invertor,
+			this.mapGenerator.eightBar.drop1
 		])
 	}
 

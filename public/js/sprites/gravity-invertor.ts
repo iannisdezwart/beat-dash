@@ -7,7 +7,7 @@ class GravityInvertor extends Sprite {
 	constructor(x: number) {
 		super()
 
-		this.x = x
+		this.x = x + Player.leftOffset
 	}
 
 	topVec() {
@@ -27,14 +27,15 @@ class GravityInvertor extends Sprite {
 	}
 
 	render(game: Game) {
-		game.strokeLine(this.topVec(), this.bottomVec(), GravityInvertor.width, '#555')
+		game.strokeLine(this.topVec(), this.bottomVec(), GravityInvertor.width, '#222')
 	}
 
 	collision(player: Player) {
 		if (this.playerHit) return
 
-		if (player.right() >= this.left() && player.right() <= this.left()) {
+		if (player.right() >= this.left() && player.left() <= this.right()) {
 			this.playerHit = true
+			player.isJumping = false
 			player.gravityMultiplier *= -1
 		}
 	}
