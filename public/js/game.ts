@@ -111,7 +111,9 @@ class Game {
 
 		// Schedule the next frame
 
-		requestAnimationFrame(() => this.nextFrame())
+		if (this.isRendering) {
+			requestAnimationFrame(() => this.nextFrame())
+		}
 	}
 
 	resize() {
@@ -148,6 +150,12 @@ class Game {
 
 		for (let sprite of this.sprites) {
 			sprite.render(this, this.renderDuration)
+		}
+
+		// Jump player in the beginning
+
+		if (this.scroll < JumpTrajectory.width) {
+			this.player.jump()
 		}
 
 		// Render audio and beat visualisers
