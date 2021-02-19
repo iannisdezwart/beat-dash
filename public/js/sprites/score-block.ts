@@ -32,8 +32,14 @@ class ScoreBlock extends Sprite {
 		return this.pos.y - ScoreBlock.height / 2
 	}
 
+	isVisible(game: Game) {
+		const minX = game.scroll
+		const maxX = game.scroll + Game.width
+		return this.bottomRight().x > minX && this.topLeft().x < maxX
+	}
+
 	render(game: Game) {
-		if (this.popped) return
+		if (this.popped || !this.isVisible(game)) return
 
 		const xOffset = ScoreBlock.width / 4
 

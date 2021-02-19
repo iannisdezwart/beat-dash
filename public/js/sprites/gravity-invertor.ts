@@ -26,7 +26,14 @@ class GravityInvertor extends Sprite {
 		return this.x + GravityInvertor.width / 2
 	}
 
+	isVisible(game: Game) {
+		const minX = game.scroll
+		const maxX = game.scroll + Game.width
+		return this.right() > minX && this.left() < maxX
+	}
+
 	render(game: Game) {
+		if (!this.isVisible(game)) return
 		game.strokeLine(this.topVec(), this.bottomVec(), GravityInvertor.width, '#222')
 	}
 

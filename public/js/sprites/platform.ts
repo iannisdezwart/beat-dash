@@ -18,23 +18,38 @@ class Platform extends Sprite {
 		this.width = width
 		this.height = height
 		this.onCeiling = onCeiling
-	}
 
-	render(game: Game) {
-		// Render floor platform
+		// Floor platform
 
 		if (!this.onCeiling) {
 			this.topLeft = new Vector([ this.x, Floor.y - this.height ])
 			this.bottomRight = new Vector([ this.x + this.width, Floor.y ])
 		}
 
-		// Render ceiling platform
+		// Ceiling platform
 
 		else {
 			this.topLeft = new Vector([ this.x, Ceiling.y ])
 			this.bottomRight = new Vector([ this.x + this.width, Ceiling.y + this.height ])
 		}
+	}
 
+	left() {
+		return this.x
+	}
+
+	right() {
+		return this.x + this.width
+	}
+
+	isVisible(game: Game) {
+		const minX = game.scroll
+		const maxX = game.scroll + Game.width
+		return this.right() > minX && this.left() < maxX
+	}
+
+	render(game: Game) {
+		if (!this.isVisible(game)) return
 		game.fillRect(this.topLeft, this.bottomRight, '#3a86ff')
 	}
 

@@ -41,7 +41,15 @@ class Spike extends Sprite {
 		return this.pos.x
 	}
 
+	isVisible(game: Game) {
+		const minX = game.scroll
+		const maxX = game.scroll + Game.width
+		return this.right() > minX && this.left() < maxX
+	}
+
 	render(game: Game) {
+		if (!this.isVisible(game)) return
+
 		game.fillPolygon([
 			new Vector([ this.left(), this.bottom() ]),
 			new Vector([ this.middle(), this.top() ]),
