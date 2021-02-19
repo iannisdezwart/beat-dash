@@ -48,7 +48,7 @@ class AudioVisualiser {
 			// const colour = `#${ toHexByte(r) }${ toHexByte(g) }${ toHexByte(b) }`
 
 			// gradient.addColorStop(xRatio, colour)
-			gradient.addColorStop(xRatio, '#222222')
+			gradient.addColorStop(xRatio, '#444444')
 		}
 
 		// Clear canvas
