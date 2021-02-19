@@ -29,6 +29,8 @@ class Keyboard {
 	}
 
 	deleteOnPress(id: number) {
-		delete this.onPressCallbacks[id]
+		if (this.onPressCallbacks[id] != null) {
+			delete this.onPressCallbacks[id]
+		}
 	}
 }
