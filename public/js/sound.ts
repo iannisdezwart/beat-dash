@@ -73,6 +73,10 @@ class Sound {
 		return !this.audio.paused
 	}
 
+	ended() {
+		return this.audio.ended
+	}
+
 	setupAnalyser() {
 		this.audioStream = this.audio.captureStream()
 		this.audioContext = new AudioContext()

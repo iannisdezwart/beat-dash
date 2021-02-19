@@ -91,6 +91,35 @@ body {
 	background-color: #444;
 }
 
+#ending-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	background-color: rgba(0, 0, 0, 0.7);
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 300ms ease, visibility 300ms;
+}
+
+#ending-screen .stats {
+	font-weight: 600;
+	margin-bottom: 2em;
+}
+
+#ending-screen .stats table .right {
+	text-align: right;
+	padding-left: 2em;
+	font-family: 'Source Code Pro', monospace;
+}
+
 #loading-screen {
 	position: absolute;
 	top: 0;
@@ -127,6 +156,14 @@ body {
 	transition: opacity 300ms ease, visibility 300ms;
 }
 
+#menu .settings {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin: 1em 0;
+}
+
 #level-selection, #pause-menu {
 	display: flex;
 	align-items: center;
@@ -151,10 +188,8 @@ body {
 	margin: 0;
 }
 
-#level-selection .level button {
-	font-size: 1em;
-	padding: .25em .5em;
-	margin-top: .5em;
+#level-selection .level .song-bpm {
+	margin-bottom: .5em;
 }
 
 #pause-menu {
@@ -197,6 +232,11 @@ button {
 button:hover, button:focus {
 	cursor: pointer;
 	background-color: #444;
+}
+
+button.small {
+	font-size: 1em;
+	padding: .25em .5em;
 }
 
 .slider {

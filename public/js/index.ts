@@ -9,17 +9,7 @@ const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
 const selectLevel = async (i: number) => {
 	const levelEntry = levelList[i]
 	level = levelEntry.createLevel()
-
-	// Hide level selection and show pause menu
-
 	levelSelection.classList.add('hidden')
-	pauseMenu.classList.remove('hidden')
-
-	// Start space listener to start game
-
-	spaceListenerID = keyboard.onPress('Space', () => {
-		startGame()
-	})
 }
 
 // Show song list
@@ -34,12 +24,6 @@ for (let i = 0; i < levelList.length; i++) {
 		<button class="small" onclick="selectLevel(${ i })">play</button>
 	</div>
 	`
-}
-
-const startGame = () => {
-	document.querySelector<HTMLButtonElement>('#play-button').blur()
-	keyboard.deleteOnPress(spaceListenerID)
-	level.game.start()
 }
 
 // Volume input

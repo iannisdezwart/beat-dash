@@ -1,26 +1,67 @@
 abstract class Level {
-	songFileName: string
 	song = new Sound()
+	songFileName: string
+	songTitle: string
 	songURL: string
+	bpm: number
+
 	game: Game
 	mapGenerator: MapGenerator
-	bpm: number
+
+	spaceListenerID: number
 
 	constructor(songFileName: string, songTitle: string, bpm: number) {
 		this.songFileName = songFileName
+		this.songTitle = songTitle
 		this.bpm = bpm
-		this.game = new Game('game', this)
-		this.mapGenerator = new MapGenerator(this.game)
-		this.load()
 
 		// Render song title
 
 		const songTitleEl = document.querySelector<HTMLHeadingElement>('#song-title')
-		songTitleEl.innerText = songTitle
+		songTitleEl.innerText = this.songTitle
+
+		// Create game
+
+		this.reload()
 	}
 
 	abstract loadLevel(): void
 	abstract onLoaded(): void
+
+	reload() {
+		// Hide ending screen
+
+		const endingScreen = document.querySelector<HTMLDivElement>('#ending-screen')
+		endingScreen.classList.add('invisible')
+
+		// Blur reload button
+
+		;(document.activeElement as HTMLElement).blur()
+
+		// Recreate game
+
+		this.game = new Game('game', this)
+		this.mapGenerator = new MapGenerator(this.game)
+		this.load()
+
+		// Show pause menu
+
+		const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
+		pauseMenu.classList.remove('hidden')
+
+		const menu = document.querySelector<HTMLDivElement>('#menu')
+		menu.classList.remove('invisible')
+
+		// Start when space is pressed
+
+		this.spaceListenerID = this.game.keyboard.onPress('Space', () => this.start())
+	}
+
+	start() {
+		this.game.start()
+		document.querySelector<HTMLButtonElement>('#play-button').blur()
+		this.game.keyboard.deleteOnPress(this.spaceListenerID)
+	}
 
 	async load() {
 		this.showLoadingScreen()

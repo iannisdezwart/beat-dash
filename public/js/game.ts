@@ -8,6 +8,7 @@ class Game {
 	active = false
 
 	keyboard = new Keyboard()
+	pauseButtonListener: number
 
 	sprites: Sprite[] = []
 	player: Player
@@ -39,7 +40,7 @@ class Game {
 
 		addEventListener('resize', () => this.resize())
 
-		this.keyboard.onPress('KeyP', () => {
+		this.pauseButtonListener = this.keyboard.onPress('KeyP', () => {
 			if (this.isRendering) {
 				this.pause()
 			} else {
@@ -77,6 +78,11 @@ class Game {
 	}
 
 	nextFrame() {
+		if (this.level.song.ended()) {
+			this.showEndingScreen()
+			return
+		}
+
 		this.update()
 
 		// Calculate render duration
@@ -217,6 +223,24 @@ class Game {
 		setTimeout(() => {
 			document.body.style.backgroundColor = '#111'
 		}, 300)
+	}
+
+	showEndingScreen() {
+		const endingScreen = document.querySelector<HTMLDivElement>('#ending-screen')
+		const songNameField = endingScreen.querySelector<HTMLHeadElement>('#song-name')
+		const scoreField = endingScreen.querySelector<HTMLHeadElement>('#final-score')
+		const scoreBlocksField = endingScreen.querySelector<HTMLHeadElement>('#score-blocks-gathered')
+		const spikesField = endingScreen.querySelector<HTMLHeadElement>('#spikes-hit')
+		const platformsField = endingScreen.querySelector<HTMLHeadElement>('#platforms-missed')
+
+		songNameField.innerText = this.level.songTitle
+		scoreField.innerText = this.player.score.toString()
+		scoreBlocksField.innerText = this.player.scoreBlocksGathered.toString()
+		spikesField.innerText = this.player.spikesHit.toString()
+		platformsField.innerText = this.player.platformsMissed.toString()
+
+		endingScreen.classList.remove('invisible')
+		this.keyboard.deleteOnPress(this.pauseButtonListener)
 	}
 
 	beginPath() {
