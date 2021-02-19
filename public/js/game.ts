@@ -49,6 +49,10 @@ class Game {
 		})
 	}
 
+	destroy() {
+		this.keyboard.deleteOnPress(this.pauseButtonListener)
+	}
+
 	addPlayer(player: Player) {
 		this.sprites.push(player)
 		this.player = player

@@ -6,6 +6,13 @@ let spaceListenerID: number
 const levelSelection = document.querySelector<HTMLDivElement>('#level-selection')
 const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
 
+const showMainMenu = () => {
+	level.game.isRendering = false
+	level.destroy()
+	levelSelection.classList.remove('hidden')
+	pauseMenu.classList.add('hidden')
+}
+
 const selectLevel = async (i: number) => {
 	const levelEntry = levelList[i]
 	level = levelEntry.createLevel()

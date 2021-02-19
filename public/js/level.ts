@@ -57,6 +57,10 @@ abstract class Level {
 		this.spaceListenerID = this.game.keyboard.onPress('Space', () => this.start())
 	}
 
+	destroy() {
+		this.game.destroy()
+	}
+
 	start() {
 		this.game.start()
 		document.querySelector<HTMLButtonElement>('#play-button').blur()
