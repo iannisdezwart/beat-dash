@@ -7,7 +7,6 @@ const database = {
 		localStorage.setItem('volume', newVolume.toString())
 		volumeInput.value = (newVolume * 100).toString()
 		volumeInputLabel.innerText = volumeInput.value + '%'
-		level.song.setVolume(newVolume)
 	},
 
 	get audioVisualiserEnabled() {

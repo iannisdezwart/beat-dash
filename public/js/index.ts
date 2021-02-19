@@ -1,9 +1,40 @@
-const level = new LevelNostalgia()
-const keyboard = level.game.keyboard
+let level: Level
+const keyboard = new Keyboard()
 
-const spaceListenerID = keyboard.onPress('Space', () => {
-	startGame()
-})
+let spaceListenerID: number
+
+const levelSelection = document.querySelector<HTMLDivElement>('#level-selection')
+const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
+
+const selectLevel = async (i: number) => {
+	const levelEntry = levelList[i]
+	level = levelEntry.createLevel()
+
+	// Hide level selection and show pause menu
+
+	levelSelection.classList.add('hidden')
+	pauseMenu.classList.remove('hidden')
+
+	// Start space listener to start game
+
+	spaceListenerID = keyboard.onPress('Space', () => {
+		startGame()
+	})
+}
+
+// Show song list
+
+for (let i = 0; i < levelList.length; i++) {
+	const level = levelList[i]
+
+	levelSelection.innerHTML += /* html */ `
+	<div class="level">
+		<p class="song-name">${ level.artist } - ${ level.title }</p>
+		<p class="song-bpm">${ level.bpm } bpm</p>
+		<button class="small" onclick="selectLevel(${ i })">play</button>
+	</div>
+	`
+}
 
 const startGame = () => {
 	document.querySelector<HTMLButtonElement>('#play-button').blur()

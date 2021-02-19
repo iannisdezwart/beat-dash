@@ -7,6 +7,7 @@
 
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="css/index.css">
 
@@ -27,7 +28,9 @@
 		<script defer src="js/sprites/gravity-invertor.js"></script>
 		<script defer src="js/map-generator.js"></script>
 		<script defer src="js/level.js"></script>
+		<script defer src="js/level-list.js"></script>
 		<script defer src="js/levels/nostalgia.js"></script>
+		<script defer src="js/levels/love-at-heart.js"></script>
 		<script defer src="js/index.js"></script>
 	</head>
 	<body>
@@ -50,41 +53,45 @@
 		<div id="menu">
 			<h1>BeatDash</h1>
 
-			<button id="play-button" tabindex="0" onclick="startGame()">Play</button>
+			<div id="level-selection"></div>
 
-			<h2>Settings</h2>
+			<div id="pause-menu" class="hidden">
+				<button id="play-button" tabindex="0" onclick="startGame()">Play</button>
 
-			<div class="slider">
-				<div class="label">Volume</div>
-				<input type="range" id="volume-slider" tabindex="0" min="0" max="100" value="100">
-				<div class="label" id="volume-slider-value">100%</div>
+				<h2>Settings</h2>
+
+				<div class="slider">
+					<div class="label">Volume</div>
+					<input type="range" id="volume-slider" tabindex="0" min="0" max="100" value="100">
+					<div class="label" id="volume-slider-value">100%</div>
+				</div>
+
+				<div class="toggle">
+					<div class="label">Beat visualiser</div>
+					<input type="checkbox" id="beat-visualiser-toggle" tabindex="0">
+				</div>
+
+				<div class="toggle">
+					<div class="label">Audio visualiser</div>
+					<input type="checkbox" id="audio-visualiser-toggle" tabindex="0">
+				</div>
+
+				<div class="toggle">
+					<div class="label">Debug</div>
+					<input type="checkbox" id="debug-toggle" tabindex="0">
+				</div>
+
+				<h2>How to play</h2>
+
+				<p class="centered">
+					Press space to jump to avoid obstacles
+					<br>
+					Press F and J to pop left and right score blocks
+				</p>
 			</div>
-
-			<div class="toggle">
-				<div class="label">Beat visualiser</div>
-				<input type="checkbox" id="beat-visualiser-toggle" tabindex="0">
-			</div>
-
-			<div class="toggle">
-				<div class="label">Audio visualiser</div>
-				<input type="checkbox" id="audio-visualiser-toggle" tabindex="0">
-			</div>
-
-			<div class="toggle">
-				<div class="label">Debug</div>
-				<input type="checkbox" id="debug-toggle" tabindex="0">
-			</div>
-
-			<h2>How to play</h2>
-
-			<p class="centered">
-				Press space to jump to avoid obstacles
-				<br>
-				Press F and J to pop left and right score blocks
-			</p>
 		</div>
 
-		<div id="loading-screen">
+		<div id="loading-screen" class="invisible">
 			<h1>Loading</h1>
 			<div id="loading-screen-percentage">0.0%</div>
 		</div>

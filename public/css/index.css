@@ -37,8 +37,9 @@ body {
 	top: 0;
 	left: 0;
 	margin: 1em;
-	font-family: monospace;
-	font-size: 2em;
+	font-family: 'Source Code Pro', monospace;
+	font-weight: 600;
+	font-size: 1.5em;
 }
 
 #score-counter {
@@ -46,8 +47,9 @@ body {
 	top: 0;
 	right: 0;
 	margin: 1em;
-	font-family: monospace;
-	font-size: 2em;
+	font-family: 'Source Code Pro', monospace;
+	font-weight: 600;
+	font-size: 1.5em;
 }
 
 #song-details {
@@ -61,6 +63,7 @@ body {
 
 #song-title {
 	font-size: 2em;
+	margin-bottom: 0;
 }
 
 #song-time {
@@ -106,11 +109,6 @@ body {
 	transition: opacity 300ms ease, visibility 300ms;
 }
 
-#loading-screen.invisible {
-	opacity: 0;
-	visibility: hidden;
-}
-
 #menu {
 	position: absolute;
 	top: 0;
@@ -129,9 +127,50 @@ body {
 	transition: opacity 300ms ease, visibility 300ms;
 }
 
-#menu.invisible {
-	opacity: 0;
-	visibility: hidden;
+#level-selection, #pause-menu {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#level-selection .level {
+	background-color: #171717;
+	border-radius: 1em;
+	padding: 1em;
+	margin: .5em;
+	width: 200px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#level-selection .level .song-name, #level-selection .level .song-bpm {
+	text-align: center;
+	margin: 0;
+}
+
+#level-selection .level button {
+	font-size: 1em;
+	padding: .25em .5em;
+	margin-top: .5em;
+}
+
+#pause-menu {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.invisible {
+	opacity: 0 !important;
+	visibility: hidden !important;
+}
+
+.hidden {
+	display: none !important;
 }
 
 .centered {

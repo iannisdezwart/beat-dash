@@ -58,6 +58,7 @@ abstract class Level {
 
 	async loadSong() {
 		await this.song.load(this.songURL)
+		this.song.setVolume(database.storedVolume)
 	}
 
 	showLoadingScreen() {
