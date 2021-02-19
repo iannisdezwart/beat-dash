@@ -12,6 +12,9 @@ class Player extends Sprite {
 	angle = 0
 
 	score = 0
+	scoreBlocksGathered = 0
+	spikesHit = 0
+	platformsMissed = 0
 
 	static radius = 0.02
 	static gravity = 0.001

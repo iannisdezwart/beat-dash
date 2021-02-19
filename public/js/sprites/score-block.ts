@@ -70,16 +70,20 @@ class ScoreBlock extends Sprite {
 			// Pop left pointing score block by pressing F
 
 			if (this.pointsLeft && player.game.keyboard.isPressed('KeyF')) {
-				this.popped = true
-				player.addScore(ScoreBlock.hitReward)
+				this.handlePlayerHit(player)
 			}
 
 			// Pop right pointing score block by pressing J
 
 			else if (!this.pointsLeft && player.game.keyboard.isPressed('KeyJ')) {
-				this.popped = true
-				player.addScore(ScoreBlock.hitReward)
+				this.handlePlayerHit(player)
 			}
 		}
+	}
+
+	handlePlayerHit(player: Player) {
+		this.popped = true
+		player.addScore(ScoreBlock.hitReward)
+		player.scoreBlocksGathered++
 	}
 }

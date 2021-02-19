@@ -60,8 +60,7 @@ class Platform extends Sprite {
 				// If the player collides with the left of the platform, kill them
 
 				if (!this.playerPassed && !this.playerHit && player.bottom() > this.topLeft.y) {
-					player.subtractScore(Platform.hitPenalty)
-					this.playerHit = true
+					this.handlePlayerHit(player)
 				}
 
 				// If this is a floor platform, put the player on top of the platform
@@ -79,8 +78,7 @@ class Platform extends Sprite {
 				// If the player collides with the left of the platform, kill them
 
 				if (!this.playerPassed && !this.playerHit && player.top() < this.bottomRight.y) {
-					player.subtractScore(Platform.hitPenalty)
-					this.playerHit = true
+					this.handlePlayerHit(player)
 				}
 
 				// If this is a ceiling platform, put the player on the bottom of the platform
@@ -94,5 +92,17 @@ class Platform extends Sprite {
 
 			this.playerPassed = true
 		}
+	}
+
+	handlePlayerHit(player: Player) {
+		this.playerHit = true
+		player.subtractScore(Platform.hitPenalty)
+		player.platformsMissed++
+	}
+
+	putPlayerOnTop(player: Player) {
+		player.pos.y = this.topLeft.y - Player.radius
+		player.isJumping = false
+		player.stopFalling()
 	}
 }

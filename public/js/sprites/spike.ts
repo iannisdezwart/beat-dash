@@ -85,8 +85,7 @@ class Spike extends Sprite {
 
 				if (player.left() <= this.middle() && player.right() >= this.middle()) {
 					if (player.bottom() >= this.top()) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 
@@ -95,8 +94,7 @@ class Spike extends Sprite {
 				else if (player.right() < this.middle()) {
 					const minY = this.bottom() + Spike.slope * (player.right() - this.left())
 					if (player.bottom() > minY) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 
@@ -105,8 +103,7 @@ class Spike extends Sprite {
 				else {
 					const minY = this.top() - Spike.slope * (this.right() - player.left())
 					if (player.bottom() > minY) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 			}
@@ -118,8 +115,7 @@ class Spike extends Sprite {
 
 				if (player.left() <= this.middle() && player.right() >= this.middle()) {
 					if (player.top() <= this.top()) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 
@@ -128,8 +124,7 @@ class Spike extends Sprite {
 				else if (player.right() < this.middle()) {
 					const minY = this.bottom() + Spike.slope * (player.right() - this.left())
 					if (player.top() < minY) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 
@@ -138,11 +133,16 @@ class Spike extends Sprite {
 				else {
 					const minY = this.top() + Spike.slope * (this.right() - player.left())
 					if (player.top() < minY) {
-						player.subtractScore(Spike.hitPenalty)
-						this.playerHit = true
+						this.handlePlayerHit(player)
 					}
 				}
 			}
 		}
+	}
+
+	handlePlayerHit(player: Player) {
+		this.playerHit = true
+		player.subtractScore(Spike.hitPenalty)
+		player.spikesHit++
 	}
 }
