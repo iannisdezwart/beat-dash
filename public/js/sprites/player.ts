@@ -76,8 +76,8 @@ class Player extends Sprite {
 
 	fall(dt: number) {
 		this.fallAcc = this.gravityMultiplier * Player.gravity
-		this.fallVel += this.fallAcc * dt ** 2 / 30
-		this.pos.y += this.fallVel * dt / 30
+		this.fallVel += this.fallAcc * dt / 10
+		this.pos.y += this.fallVel * dt / 10
 	}
 
 	stopFalling() {
