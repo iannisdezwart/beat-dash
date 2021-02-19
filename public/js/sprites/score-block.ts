@@ -11,10 +11,11 @@ class ScoreBlock extends Sprite {
 	static leftOffset = 0.3
 	static hitReward = 10
 
-	constructor(pos: Vector, pointsLeft = true) {
+	constructor(pos: Vector, onCeiling = false, pointsLeft = true) {
 		super()
 
 		this.pos = pos
+		if (onCeiling) this.pos.y += ScoreBlock.height
 		this.pos.x += Player.leftOffset + ScoreBlock.leftOffset
 		this.pointsLeft = pointsLeft
 	}
