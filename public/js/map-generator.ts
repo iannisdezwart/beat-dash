@@ -43,6 +43,21 @@ class MapGenerator {
 			return 4
 		},
 
+		spike1: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Spike(new Vector([ beat, this.calcY(0) ]), this.gravInverted, '#0000ff'))
+			return 4
+		},
+
+		leftScore1: (sprites: Sprite[], beat: number) => {
+			sprites.push(new ScoreBlock(new Vector([ beat, this.calcY(0)]), this.gravInverted, true))
+			return 4
+		},
+
+		rightScore1: (sprites: Sprite[], beat: number) => {
+			sprites.push(new ScoreBlock(new Vector([ beat, this.calcY(0)]), this.gravInverted, false))
+			return 4
+		},
+
 		spike2: (sprites: Sprite[], beat: number) => {
 			sprites.push(new Spike(new Vector([ beat, this.calcY(0) ]), this.gravInverted, '#0000ff'))
 			sprites.push(new Spike(new Vector([ beat + 2, this.calcY(0) ]), this.gravInverted, '#0000ff'))
@@ -116,6 +131,22 @@ class MapGenerator {
 			return 4
 		},
 
+		spikeScoreLeftScoreRightScoreLeft4: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Spike(new Vector([ beat, this.calcY(0) ]), this.gravInverted, '#0000ff'))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, this.calcY(0) ]), this.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, this.calcY(0) ]), this.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, this.calcY(0) ]), this.gravInverted, true))
+			return 4
+		},
+
+		spikeScoreRightScoreLefScoreRight4: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Spike(new Vector([ beat, this.calcY(0) ]), this.gravInverted, '#0000ff'))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, this.calcY(0) ]), this.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, this.calcY(0) ]), this.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, this.calcY(0) ]), this.gravInverted, false))
+			return 4
+		},
+
 		score4: (sprites: Sprite[], beat: number) => {
 			sprites.push(new ScoreBlock(new Vector([ beat, this.calcY(0) ]), this.gravInverted, true))
 			sprites.push(new ScoreBlock(new Vector([ beat + 1, this.calcY(0) ]), this.gravInverted, false))
@@ -178,6 +209,22 @@ class MapGenerator {
 			return 16
 		},
 
+		cooldownSpikeLeftScore2: (sprites: Sprite[], beat: number) => {
+			this.oneBar.spike1(sprites, beat)
+			this.oneBar.leftScore1(sprites, beat + 4)
+			this.oneBar.rightScore1(sprites, beat + 8)
+			this.oneBar.leftScore1(sprites, beat + 12)
+			return 16
+		},
+
+		cooldownSpikeRightScore2: (sprites: Sprite[], beat: number) => {
+			this.oneBar.spike1(sprites, beat)
+			this.oneBar.rightScore1(sprites, beat + 4)
+			this.oneBar.leftScore1(sprites, beat + 8)
+			this.oneBar.rightScore1(sprites, beat + 12)
+			return 16
+		},
+
 		fakeBuildUpSpikeScore4: (sprites: Sprite[], beat: number) => {
 			this.oneBar.spike4(sprites, beat)
 			this.oneBar.spikeScore4(sprites, beat + 4)
@@ -216,6 +263,13 @@ class MapGenerator {
 			this.oneBar.stepsScore4(sprites, beat + 8)
 			this.oneBar.scoreInvertor4(sprites, beat + 12)
 			return 16
+		},
+
+		alternatingSpikeScoreScoreScore4: (sprites: Sprite[], beat: number) => {
+			this.oneBar.spikeScoreLeftScoreRightScoreLeft4(sprites, beat)
+			this.oneBar.spikeScoreRightScoreLefScoreRight4(sprites, beat + 4)
+			this.oneBar.spikeScoreLeftScoreRightScoreLeft4(sprites, beat + 8)
+			this.oneBar.spikeScoreRightScoreLefScoreRight4(sprites, beat + 12)
 		}
 	}
 
@@ -275,6 +329,18 @@ class MapGenerator {
 		drop2Invertor: (sprites: Sprite[], beat: number) => {
 			this.fourBar.alternatingStepScoreMania4(sprites, beat)
 			this.fourBar.alternatingStepScoreManiaInvertor4(sprites, beat + 16)
+			return 32
+		},
+
+		drop3: (sprites: Sprite[], beat: number) => {
+			this.fourBar.alternatingSpikeScoreScoreScore4(sprites, beat)
+			this.fourBar.alternatingSpikeScoreScoreScore4(sprites, beat + 16)
+			return 32
+		},
+
+		cooldown1: (sprites: Sprite[], beat: number) => {
+			this.fourBar.cooldownSpikeLeftScore2(sprites, beat)
+			this.fourBar.cooldownSpikeRightScore2(sprites, beat + 16)
 			return 32
 		}
 	}
