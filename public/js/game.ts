@@ -4,8 +4,10 @@ class Game {
 	level: Level
 	beatVisualiser: BeatVisualiser
 	audioVisualiser: AudioVisualiser
+
 	isRendering = false
 	active = false
+	endingScreenShown = false
 
 	keyboard = new Keyboard()
 	pauseButtonListener: number
@@ -81,8 +83,12 @@ class Game {
 		document.querySelector<HTMLDivElement>('#menu').classList.remove('invisible')
 	}
 
+	lastNoteReached() {
+		return this.scroll > this.level.mapGenerator.beat + 4
+	}
+
 	nextFrame() {
-		if (this.level.song.ended()) {
+		if (!this.endingScreenShown && (this.lastNoteReached() || this.level.song.ended())) {
 			this.showEndingScreen()
 			return
 		}
@@ -245,6 +251,8 @@ class Game {
 
 		endingScreen.classList.remove('invisible')
 		this.keyboard.deleteOnPress(this.pauseButtonListener)
+
+		this.endingScreenShown = true
 	}
 
 	beginPath() {

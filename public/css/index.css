@@ -105,7 +105,7 @@ body {
 
 	opacity: 1;
 	visibility: visible;
-	transition: opacity 300ms ease, visibility 300ms;
+	transition: opacity 1s ease, visibility 1s;
 }
 
 #break-seconds {
@@ -151,7 +151,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.7);
 	opacity: 1;
 	visibility: visible;
-	transition: opacity 300ms ease, visibility 300ms;
+	transition: opacity 2s ease, visibility 2s;
 }
 
 #ending-screen .stats {
@@ -247,6 +247,10 @@ body {
 .invisible {
 	opacity: 0 !important;
 	visibility: hidden !important;
+}
+
+.fade-out {
+	opacity: 0 !important;
 }
 
 .hidden {

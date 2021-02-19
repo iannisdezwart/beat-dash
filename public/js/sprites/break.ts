@@ -19,27 +19,32 @@ class Break extends Sprite {
 	}
 
 	isVisible(game: Game) {
+		const oneSecond = game.bps
+		return game.scroll > this.left() && game.scroll < this.right() - oneSecond
+	}
+
+	isActive(game: Game) {
 		return game.scroll > this.left() && game.scroll < this.right()
 	}
 
 	render(game: Game) {
 		const visible = this.isVisible(game)
+		const active = this.isActive(game)
 		const breakEl = document.querySelector<HTMLDivElement>('#break')
 		const breakSeconds = breakEl.querySelector<HTMLDivElement>('#break-seconds')
 		const breakProgress = breakEl.querySelector<HTMLDivElement>('#break-progress')
-
-		if (this.activated && !visible) {
-			this.activated = false
-			breakEl.classList.add('invisible')
-			return
-		}
 
 		if (!this.activated && visible) {
 			this.activated = true
 			breakEl.classList.remove('invisible')
 		}
 
-		if (this.activated && visible) {
+		if (this.activated && !visible) {
+			this.activated = false
+			breakEl.classList.add('invisible')
+		}
+
+		if (active) {
 			const progress = -100 * (1 - (game.scroll - this.left()) / this.width)
 			breakProgress.style.transform = `translate(${ progress }%)`
 
