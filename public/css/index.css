@@ -24,7 +24,7 @@ body {
 #audio-visualiser {
 	position: absolute;
 	pointer-events: none;
-	opacity: 1;
+	opacity: 0.5;
 }
 
 #game {
@@ -76,7 +76,7 @@ body {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 10px;
+	height: 1vh;
 	width: 100vw;
 }
 
@@ -84,11 +84,56 @@ body {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 10px;
+	height: 1vh;
 	width: 100vw;
 	transform: translateX(-100%);
 	opacity: 0.5;
 	background-color: #444;
+}
+
+#break {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 300ms ease, visibility 300ms;
+}
+
+#break-seconds {
+	font-family: 'Source Code Pro', monospace;
+	font-weight: 600;
+	font-size: 1.5em;
+	margin-bottom: 1em;
+}
+
+#break-progress-container {
+	position: relative;
+	height: 1vh;
+	width: 50vw;
+	overflow: hidden;
+	background-color: rgba(50, 50, 50, 0.2);
+}
+
+#break-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	height: 1vh;
+	width: 50vw;
+	overflow: hidden;
+
+	transform: translateX(-100%);
+	background-color: rgba(50, 50, 50, 0.4);
 }
 
 #ending-screen {

@@ -39,7 +39,8 @@ class MapGenerator {
 	}
 
 	oneBar = {
-		break: () => {
+		break: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Break(beat, 4))
 			return 4
 		},
 
@@ -164,8 +165,16 @@ class MapGenerator {
 		}
 	}
 
+	twoBar = {
+		break: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Break(beat, 2))
+			return 2
+		}
+	}
+
 	fourBar = {
-		break() {
+		break: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Break(beat, 16))
 			return 16
 		},
 
@@ -274,7 +283,8 @@ class MapGenerator {
 	}
 
 	eightBar = {
-		break() {
+		break: (sprites: Sprite[], beat: number) => {
+			sprites.push(new Break(beat, 32))
 			return 32
 		},
 
