@@ -80,7 +80,7 @@ class Spike extends Sprite {
 		) {
 			// If gravity is normal
 
-			if (player.gravityMultiplier >= 0) {
+			if (player.gravityMultiplier >= 0 && !this.onCeiling) {
 				// If the player should be above the spike
 
 				if (player.left() <= this.middle() && player.right() >= this.middle()) {
@@ -113,8 +113,35 @@ class Spike extends Sprite {
 
 			// If gravity is inverted
 
-			else {
+			else if (this.onCeiling) {
+				// If the player should be below the spike
 
+				if (player.left() <= this.middle() && player.right() >= this.middle()) {
+					if (player.top() <= this.top()) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
+				}
+
+				// If the player is on the left side of the spike
+
+				else if (player.right() < this.middle()) {
+					const minY = this.bottom() + Spike.slope * (player.right() - this.left())
+					if (player.top() < minY) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
+				}
+
+				// If the player is on the right side of the spike
+
+				else {
+					const minY = this.top() + Spike.slope * (this.right() - player.left())
+					if (player.top() < minY) {
+						player.subtractScore(Spike.hitPenalty)
+						this.playerHit = true
+					}
+				}
 			}
 		}
 	}
