@@ -46,11 +46,7 @@ class Game {
 		// Pause when P is pressed
 
 		this.pauseButtonListener = this.keyboard.onPress('KeyP', () => {
-			if (this.isRendering) {
-				this.pause()
-			} else {
-				this.start()
-			}
+			this.togglePause()
 		})
 
 		// Setup touch screen
@@ -110,6 +106,14 @@ class Game {
 		this.level.song.pause()
 		document.querySelector<HTMLButtonElement>('#play-button').innerText = 'Continue'
 		document.querySelector<HTMLDivElement>('#menu').classList.remove('invisible')
+	}
+
+	togglePause() {
+		if (this.isRendering) {
+			this.pause()
+		} else {
+			this.start()
+		}
 	}
 
 	lastNoteReached() {

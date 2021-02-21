@@ -23,6 +23,11 @@ abstract class Level {
 		// Create game
 
 		this.reload()
+
+		// Show pause button
+
+		const pauseButton = document.querySelector<HTMLButtonElement>('#pause-button')
+		pauseButton.classList.remove('hidden')
 	}
 
 	abstract loadLevel(): void

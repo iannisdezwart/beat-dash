@@ -15,6 +15,30 @@ body {
 	transition: background-color 300ms ease;
 }
 
+html[touch="false"] .touch {
+	display: none;
+}
+
+#left-touch-indicator {
+	position: absolute;
+	top: 0;
+	left: 25%;
+	height: 100%;
+	width: 2px;
+	background-color: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
+#right-touch-indicator {
+	position: absolute;
+	top: 0;
+	left: 75%;
+	height: 100%;
+	width: 2px;
+	background-color: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
 #beat-visualiser {
 	position: absolute;
 	pointer-events: none;
@@ -28,8 +52,20 @@ body {
 }
 
 #game {
-	/* border: 1px solid #777; */
 	opacity: 0.8;
+}
+
+#pause-button {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	margin: 1em;
+}
+
+@media (max-height: 500px) {
+	#pause-button {
+		margin: 0;
+	}
 }
 
 #fps-counter {
@@ -70,6 +106,33 @@ body {
 	font-family: monospace;
 	font-size: 1.5em;
 	text-align: center;
+}
+
+@media (max-width: 900px) {
+	#song-title {
+		font-size: 3vw;
+	}
+}
+
+@media (max-height: 600px) {
+	#score-counter {
+		margin: .5em;
+		font-size: 3.75vh;
+	}
+
+	#fps-counter {
+		margin: .5em;
+		font-size: 3.75vh;
+	}
+
+	#song-title {
+		margin-top: .25em;
+		font-size: 5vh;
+	}
+
+	#song-time {
+		font-size: 3.75vh;
+	}
 }
 
 #song-progress-container {
@@ -183,12 +246,17 @@ body {
 	transition: opacity 300ms ease, visibility 300ms;
 }
 
-#menu {
+#menu-container {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+	overflow-y: auto;
+}
+
+#menu {
+	min-height: 100%;
 
 	display: flex;
 	align-items: center;
@@ -213,6 +281,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
 #level-selection .level {

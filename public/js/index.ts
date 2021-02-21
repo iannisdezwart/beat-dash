@@ -1,12 +1,21 @@
 let level: Level
 const keyboard = new Keyboard()
-
 let spaceListenerID: number
+const isTouchDevice =
+	('ontouchstart' in window) || navigator.maxTouchPoints > 0
+	|| navigator.msMaxTouchPoints > 0
+
+if (!isTouchDevice) {
+	document.querySelector<HTMLHtmlElement>('html').setAttribute('touch', 'false')
+} else {
+	document.querySelector<HTMLHtmlElement>('html').setAttribute('touch', 'true')
+}
 
 const menu = document.querySelector<HTMLDivElement>('#menu')
 const levelSelection = document.querySelector<HTMLDivElement>('#level-selection')
 const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
 const endingScreen = document.querySelector<HTMLDivElement>('#ending-screen')
+const pauseButton = document.querySelector<HTMLButtonElement>('#pause-button')
 
 const showMainMenu = () => {
 	level.game.isRendering = false
@@ -15,6 +24,7 @@ const showMainMenu = () => {
 	levelSelection.classList.remove('hidden')
 	endingScreen.classList.add('invisible')
 	pauseMenu.classList.add('hidden')
+	pauseButton.classList.add('hidden')
 }
 
 const selectLevel = async (i: number) => {
