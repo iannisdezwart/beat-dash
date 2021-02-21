@@ -17,5 +17,11 @@ const levelList: LevelEntry[] = [
 		artist: 'Blackmill',
 		bpm: 140,
 		createLevel: () => new LevelLoveAtHeart()
+	},
+	{
+		title: 'Sun Models',
+		artist: 'Odesza',
+		bpm: 60,
+		createLevel: () => new LevelSunModels()
 	}
 ]

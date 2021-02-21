@@ -3,13 +3,17 @@ const keyboard = new Keyboard()
 
 let spaceListenerID: number
 
+const menu = document.querySelector<HTMLDivElement>('#menu')
 const levelSelection = document.querySelector<HTMLDivElement>('#level-selection')
 const pauseMenu = document.querySelector<HTMLDivElement>('#pause-menu')
+const endingScreen = document.querySelector<HTMLDivElement>('#ending-screen')
 
 const showMainMenu = () => {
 	level.game.isRendering = false
 	level.destroy()
+	menu.classList.remove('invisible')
 	levelSelection.classList.remove('hidden')
+	endingScreen.classList.add('invisible')
 	pauseMenu.classList.add('hidden')
 }
 

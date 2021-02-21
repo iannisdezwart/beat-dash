@@ -167,8 +167,8 @@ class MapGenerator {
 
 	twoBar = {
 		break: (sprites: Sprite[], beat: number) => {
-			sprites.push(new Break(beat, 2))
-			return 2
+			sprites.push(new Break(beat, 8))
+			return 8
 		}
 	}
 
