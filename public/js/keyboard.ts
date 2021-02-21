@@ -10,7 +10,7 @@ class Keyboard {
 		addEventListener('keyup',   e => this.pressedKeys[e.code] = false)
 
 		addEventListener('keydown', e => {
-			for (let id in this.onPressCallbacks) {
+			for (const id in this.onPressCallbacks) {
 				const key = this.onPressCallbacks[id].key
 				const callback = this.onPressCallbacks[id].callback
 				if (key == e.code) callback()
@@ -32,5 +32,13 @@ class Keyboard {
 		if (this.onPressCallbacks[id] != null) {
 			delete this.onPressCallbacks[id]
 		}
+	}
+
+	emulatePressStart(key: string) {
+		this.pressedKeys[key] = true
+	}
+
+	emulatePressEnd(key: string) {
+		this.pressedKeys[key] = false
 	}
 }

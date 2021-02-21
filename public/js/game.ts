@@ -10,6 +10,7 @@ class Game {
 	endingScreenShown = false
 
 	keyboard = new Keyboard()
+	touchScreen = new TouchScreen()
 	pauseButtonListener: number
 
 	sprites: Sprite[] = []
@@ -42,12 +43,40 @@ class Game {
 
 		addEventListener('resize', () => this.resize())
 
+		// Pause when P is pressed
+
 		this.pauseButtonListener = this.keyboard.onPress('KeyP', () => {
 			if (this.isRendering) {
 				this.pause()
 			} else {
 				this.start()
 			}
+		})
+
+		// Setup touch screen
+
+		this.touchScreen.onTouchArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 ]), () => {
+			this.keyboard.emulatePressStart('KeyF')
+		})
+
+		this.touchScreen.onTouchEndArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 ]), () => {
+			this.keyboard.emulatePressEnd('KeyF')
+		})
+
+		this.touchScreen.onTouchArea(new Vector([ 1 / 4, 0 ]), new Vector([ 3 / 4, 1 ]), () => {
+			this.keyboard.emulatePressStart('Space')
+		})
+
+		this.touchScreen.onTouchEndArea(new Vector([ 1 / 4, 0 ]), new Vector([ 3 / 4, 1 ]), () => {
+			this.keyboard.emulatePressEnd('Space')
+		})
+
+		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 ]), () => {
+			this.keyboard.emulatePressStart('KeyJ')
+		})
+
+		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 ]), () => {
+			this.keyboard.emulatePressEnd('KeyJ')
 		})
 	}
 
