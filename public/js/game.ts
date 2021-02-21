@@ -203,7 +203,7 @@ class Game {
 
 		// Jump player in the beginning
 
-		if (this.scroll < JumpTrajectory.width) {
+		if (this.level.startWithJump && this.scroll < JumpTrajectory.width) {
 			this.player.jump()
 		}
 

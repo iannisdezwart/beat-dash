@@ -7,6 +7,7 @@ abstract class Level {
 
 	game: Game
 	mapGenerator: MapGenerator
+	startWithJump = true
 
 	spaceListenerID: number
 

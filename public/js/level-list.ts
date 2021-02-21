@@ -23,5 +23,11 @@ const levelList: LevelEntry[] = [
 		artist: 'Odesza',
 		bpm: 60,
 		createLevel: () => new LevelSunModels()
-	}
+	},
+	{
+		title: 'Shark',
+		artist: 'Oh Wonder',
+		bpm: 150,
+		createLevel: () => new LevelShark()
+	},
 ]
