@@ -28,10 +28,11 @@ class Game {
 	lastFrameTime = 0
 	renderDuration = 0
 
+	static fov = 1.5
 	static fps = 60
 	static fpsUpdateInterval = 5
-	static width = 1
-	static height = 0.6
+	static get width() { return 1 * Game.fov }
+	static get height() { return 0.6 * Game.fov }
 
 	constructor(canvasID: string, level: Level) {
 		this.canvas = document.getElementById(canvasID) as HTMLCanvasElement

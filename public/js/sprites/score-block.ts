@@ -6,7 +6,7 @@ class ScoreBlock extends Sprite {
 	static backgroundColourLeft = '#00ff00'
 	static backgroundColourRight = '#ff00ff'
 	static arrowColour = '#ffffff'
-	static width = 0.04
+	static get width() { return 0.04 * Game.fov }
 	static height = ScoreBlock.width
 	static leftOffset = 0.3
 	static hitReward = 10

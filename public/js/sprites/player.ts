@@ -16,7 +16,7 @@ class Player extends Sprite {
 	spikesHit = 0
 	platformsMissed = 0
 
-	static radius = 0.02
+	static get radius() { return 0.02 * Game.fov }
 	static gravity = 0.001
 	static maxFallVel = 0.1
 	static leftOffset = 0.15
@@ -165,7 +165,7 @@ class JumpTrajectory {
 	impactX: number
 
 	static width = 0.75
-	static height = 0.15
+	static get height() { return 0.15 * Game.fov }
 
 	constructor(player: Player) {
 		this.startingPos = player.pos.copy()

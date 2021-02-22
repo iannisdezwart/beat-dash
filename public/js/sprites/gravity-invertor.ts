@@ -2,7 +2,7 @@ class GravityInvertor extends Sprite {
 	x: number
 	playerHit = false
 
-	static width = 0.1
+	static get width() { return 0.1 * Game.fov }
 
 	constructor(x: number) {
 		super()

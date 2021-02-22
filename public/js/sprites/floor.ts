@@ -1,5 +1,5 @@
 class Floor extends Sprite {
-	static y = Game.height - 0.05
+	static get y() { return Game.height - 0.05 * Game.fov }
 
 	constructor() {
 		super()

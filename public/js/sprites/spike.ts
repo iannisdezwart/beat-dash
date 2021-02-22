@@ -5,8 +5,8 @@ class Spike extends Sprite {
 
 	playerHit = false
 
-	static width = 0.05
-	static height = 0.05
+	static width = 0.05 * Game.fov
+	static height = 0.05 * Game.fov
 	static get slope() { return Spike.height / (Spike.width / 2) }
 
 	static hitPenalty = 5

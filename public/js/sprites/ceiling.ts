@@ -1,5 +1,5 @@
 class Ceiling extends Sprite {
-	static y = 0.05
+	static get y() { return 0.05 * Game.fov }
 
 	constructor() {
 		super()
