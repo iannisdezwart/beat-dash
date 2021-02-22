@@ -30,4 +30,10 @@ const levelList: LevelEntry[] = [
 		bpm: 150,
 		createLevel: () => new LevelShark()
 	},
+	{
+		title: 'Crave You (remix)',
+		artist: 'Flight Facilities',
+		bpm: 140,
+		createLevel: () => new LevelCraveYou()
+	}
 ]
