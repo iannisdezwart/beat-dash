@@ -14,14 +14,18 @@ class MapGenerator {
 		// If gravity is normal
 
 		if (this.gravNormal) {
-			return Floor.y - yOffset
+			return Floor.y - yOffset * Game.fov
 		}
 
 		// If gravity is inverted
 
 		else {
-			return Ceiling.y + yOffset
+			return Ceiling.y + yOffset * Game.fov
 		}
+	}
+
+	calcHeight(height: number) {
+		return height * Game.fov
 	}
 
 	add(...templates: MapTemplateGenerator[]) {
@@ -90,27 +94,27 @@ class MapGenerator {
 		},
 
 		steps2: (sprites: Sprite[], beat: number, gen: MapGenerator) =>{
-			sprites.push(new Platform(beat, 2, 0.1, gen.gravInverted))
-			sprites.push(new Platform(beat + 2, 1, 0.2, gen.gravInverted))
+			sprites.push(new Platform(beat, 2, gen.calcHeight(0.1), gen.gravInverted))
+			sprites.push(new Platform(beat + 2, 1, gen.calcHeight(0.2), gen.gravInverted))
 			return 4
 		},
 
 		stepsScore4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new Platform(beat, 2, 0.1, gen.gravInverted))
+			sprites.push(new Platform(beat, 2, gen.calcHeight(0.1), gen.gravInverted))
 			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0.1) ]), gen.gravInverted, true))
-			sprites.push(new Platform(beat + 2, 1, 0.2, gen.gravInverted))
+			sprites.push(new Platform(beat + 2, 1, gen.calcHeight(0.2), gen.gravInverted))
 			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0.2) ]), gen.gravInverted, false))
 			return 4
 		},
 
 		platformSpike2: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new Platform(beat, 3, 0.1, gen.gravInverted))
+			sprites.push(new Platform(beat, 3, gen.calcHeight(0.1), gen.gravInverted))
 			sprites.push(new Spike(new Vector([ beat + 2, gen.calcY(0.1) ]), gen.gravInverted, '#0000ff'))
 			return 4
 		},
 
 		platformSpikeContinuous2: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new Platform(beat, 4, 0.1, gen.gravInverted))
+			sprites.push(new Platform(beat, 4, gen.calcHeight(0.1), gen.gravInverted))
 			sprites.push(new Spike(new Vector([ beat + 2, gen.calcY(0.1) ]), gen.gravInverted, '#0000ff'))
 			sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0.1) ]), gen.gravInverted, '#0000ff'))
 			return 4
