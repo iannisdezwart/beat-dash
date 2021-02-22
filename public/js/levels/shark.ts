@@ -10,19 +10,19 @@ class LevelShark extends Level {
 			this.introOutro,
 			this.introOutro,
 			this.introDrums,
-			this.introDrums, // I feel like the second spike is slightly off beat
 			this.introDrums,
-			this.introDrums, // I feel like the second spike is slightly off beat
+			this.introDrums,
+			this.introDrums,
 			this.buidup,
 			this.buidup,
 			this.buidup,
 			this.buidup,
 			this.drop,
 			this.drop,
-			this.introDrums, // Fix start of this
-			this.introDrums, // I feel like the second spike is slightly off beat
+			this.introDrumsAfterDrop,
 			this.introDrums,
-			this.introDrums, // I feel like the second spike is slightly off beat
+			this.introDrums,
+			this.introDrums,
 			this.buidup,
 			this.buidup,
 			this.buidup,
@@ -60,6 +60,14 @@ class LevelShark extends Level {
 		return 16
 	}
 
+	introDrumsAfterDrop(sprites: Sprite[], beat: number, gen: MapGenerator) {
+		sprites.push(new Break(beat, 11))
+		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
+		sprites.push(new Spike(new Vector([ beat + 14, gen.calcY(0) ]), gen.gravInverted, '#ff0000'))
+		sprites.push(new ScoreBlock(new Vector([ beat + 15.5, gen.calcY(0) ]), false, false))
+		return 16
+	}
+
 	buidup(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, true))
@@ -72,17 +80,17 @@ class LevelShark extends Level {
 		return 16
 	}
 
-	// Todo: make the drop slightly different to the buildup
-
 	drop(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, true))
 		sprites.push(new Spike(new Vector([ beat + 4.5, gen.calcY(0) ]), gen.gravInverted, '#ff0000'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6.5, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 7.5, gen.calcY(0) ]), false, false))
 		sprites.push(new Spike(new Vector([ beat + 9, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
 		sprites.push(new Spike(new Vector([ beat + 12.5, gen.calcY(0) ]), gen.gravInverted, '#ff0000'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 15, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 16, gen.calcY(0) ]), false, false))
 		return 16
 	}
 }
