@@ -274,12 +274,14 @@ class Game {
 		const songNameField = endingScreen.querySelector<HTMLHeadElement>('#song-name')
 		const scoreField = endingScreen.querySelector<HTMLHeadElement>('#final-score')
 		const scoreBlocksField = endingScreen.querySelector<HTMLHeadElement>('#score-blocks-gathered')
+		const scoreTrailsField = endingScreen.querySelector<HTMLHeadElement>('#score-trail-distance-slided')
 		const spikesField = endingScreen.querySelector<HTMLHeadElement>('#spikes-hit')
 		const platformsField = endingScreen.querySelector<HTMLHeadElement>('#platforms-missed')
 
 		songNameField.innerText = this.level.songTitle
 		scoreField.innerText = this.player.score.toString()
 		scoreBlocksField.innerText = this.player.scoreBlocksGathered.toString()
+		scoreTrailsField.innerText = this.player.scoreTrailDistanceSlided.toFixed(2)
 		spikesField.innerText = this.player.spikesHit.toString()
 		platformsField.innerText = this.player.platformsMissed.toString()
 

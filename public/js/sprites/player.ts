@@ -13,6 +13,7 @@ class Player extends Sprite {
 
 	score = 0
 	scoreBlocksGathered = 0
+	scoreTrailDistanceSlided = 0
 	spikesHit = 0
 	platformsMissed = 0
 
