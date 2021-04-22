@@ -44,8 +44,8 @@ class LevelShark extends Level {
 
 	introOutro(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 4, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 8, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreTrail(new Vector([ beat + 4, gen.calcY(0) ]), 1, false, true))
+		sprites.push(new ScoreTrail(new Vector([ beat + 8, gen.calcY(0) ]), 1, false, false))
 		return 16
 	}
 
@@ -56,7 +56,7 @@ class LevelShark extends Level {
 		sprites.push(new Spike(new Vector([ beat + 9.5, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
 		sprites.push(new Spike(new Vector([ beat + 14, gen.calcY(0) ]), gen.gravInverted, '#ff0000'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 15.5, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreTrail(new Vector([ beat + 15.5, gen.calcY(0) ]), 0.5, false, false))
 		return 16
 	}
 
@@ -89,8 +89,8 @@ class LevelShark extends Level {
 		sprites.push(new Spike(new Vector([ beat + 9, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
 		sprites.push(new Spike(new Vector([ beat + 12.5, gen.calcY(0) ]), gen.gravInverted, '#ff0000'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 15, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 16, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreTrail(new Vector([ beat + 14, gen.calcY(0)]), 0.5, false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 15.5, gen.calcY(0) ]), false, false))
 		return 16
 	}
 }
