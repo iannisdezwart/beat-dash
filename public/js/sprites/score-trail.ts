@@ -17,7 +17,7 @@ class ScoreTrail extends Sprite {
 	static arrowColour = ScoreBlock.arrowColour
 	static height = ScoreBlock.height
 	static leftOffset = ScoreBlock.leftOffset
-	static perfectSlideReward = 20
+	static rewardPerBeat = 20
 
 	constructor(pos: Vector, width: number, onCeiling = false, pointsLeft = true) {
 		super()
@@ -163,8 +163,8 @@ class ScoreTrail extends Sprite {
 		this.popState = PopStates.POPPED
 
 		const slidedDistance = player.pos.x - this.popStart
-		const score = Math.round(Math.min(slidedDistance / this.width, 1)
-			* ScoreTrail.perfectSlideReward)
+		const score = Math.round(Math.min(slidedDistance, this.width)
+			* ScoreTrail.rewardPerBeat)
 
 		player.addScore(score)
 		player.scoreTrailDistanceSlided += slidedDistance
