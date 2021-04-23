@@ -35,5 +35,11 @@ const levelList: LevelEntry[] = [
 		artist: 'Flight Facilities',
 		bpm: 140,
 		createLevel: () => new LevelCraveYou()
+	},
+	{
+		title: 'Fire',
+		artist: 'Brook Xiao',
+		bpm: 148,
+		createLevel: () => new LevelFire()
 	}
 ]
