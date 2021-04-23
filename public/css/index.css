@@ -39,6 +39,26 @@ html[touch="false"] .touch {
 	pointer-events: none;
 }
 
+#left-touch-divider {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	height: 2px;
+	width: 25%;
+	background-color: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
+#right-touch-divider {
+	position: absolute;
+	top: 50%;
+	left: 75%;
+	height: 2px;
+	width: 25%;
+	background-color: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
 #beat-visualiser {
 	position: absolute;
 	pointer-events: none;

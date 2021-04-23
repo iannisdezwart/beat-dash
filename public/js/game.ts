@@ -52,11 +52,19 @@ class Game {
 
 		// Setup touch screen
 
-		this.touchScreen.onTouchArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 ]), () => {
+		this.touchScreen.onTouchArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 / 2 ]), () => {
+			this.keyboard.emulatePressStart('KeyR')
+		})
+
+		this.touchScreen.onTouchEndArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 / 2 ]), () => {
+			this.keyboard.emulatePressEnd('KeyR')
+		})
+
+		this.touchScreen.onTouchArea(new Vector([ 0, 1 / 2 ]), new Vector([ 1 / 4, 1 ]), () => {
 			this.keyboard.emulatePressStart('KeyF')
 		})
 
-		this.touchScreen.onTouchEndArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 ]), () => {
+		this.touchScreen.onTouchEndArea(new Vector([ 0, 1 / 2 ]), new Vector([ 1 / 4, 1 ]), () => {
 			this.keyboard.emulatePressEnd('KeyF')
 		})
 
@@ -68,11 +76,19 @@ class Game {
 			this.keyboard.emulatePressEnd('Space')
 		})
 
-		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 ]), () => {
+		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 / 2 ]), () => {
+			this.keyboard.emulatePressStart('KeyU')
+		})
+
+		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 / 2 ]), () => {
+			this.keyboard.emulatePressEnd('KeyU')
+		})
+
+		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 1 / 2 ]), new Vector([ 1, 1 ]), () => {
 			this.keyboard.emulatePressStart('KeyJ')
 		})
 
-		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 ]), () => {
+		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 1 / 2 ]), new Vector([ 1, 1 ]), () => {
 			this.keyboard.emulatePressEnd('KeyJ')
 		})
 	}
