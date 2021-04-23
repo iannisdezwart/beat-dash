@@ -96,6 +96,10 @@ class Game {
 	start() {
 		if (!this.active) this.setupVisualisers()
 
+		// Update volume
+
+		this.level.song.setVolume(database.storedVolume)
+
 		this.isRendering = true
 		this.level.song.play()
 		document.querySelector<HTMLDivElement>('#menu').classList.add('invisible')
