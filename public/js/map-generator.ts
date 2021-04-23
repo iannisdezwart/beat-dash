@@ -54,12 +54,12 @@ class MapGenerator {
 		},
 
 		leftScore1: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0)]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			return 4
 		},
 
 		rightScore1: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0)]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
@@ -70,20 +70,20 @@ class MapGenerator {
 		},
 
 		score2: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
 		spikeLeftScore2: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			return 4
 		},
 
 		spikeRightScore2: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
@@ -101,9 +101,9 @@ class MapGenerator {
 
 		stepsScore4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Platform(beat, 2, gen.calcHeight(0.1), gen.gravInverted))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0.1) ]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0.1) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			sprites.push(new Platform(beat + 2, 1, gen.calcHeight(0.2), gen.gravInverted))
-			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0.2) ]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0.2) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
@@ -130,40 +130,40 @@ class MapGenerator {
 
 		spikeScore4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			sprites.push(new Spike(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
 		spikeScoreLeftScoreRightScoreLeft4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, false))
-			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			return 4
 		},
 
 		spikeScoreRightScoreLefScoreRight4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
 			sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, false))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
 		score4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, false))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, false))
+			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
 			return 4
 		},
 
 		scoreInvertor4: (sprites: Sprite[], beat: number, gen: MapGenerator) => {
-			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, true))
-			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, false))
-			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, true))
+			sprites.push(new ScoreBlock(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.LEFT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), gen.gravInverted, ScoreBlockOrientation.RIGHT))
+			sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), gen.gravInverted, ScoreBlockOrientation.LEFT))
 			MapGenerator.special.gravityInvertor(sprites, beat + 3, gen)
 			return 4
 		}

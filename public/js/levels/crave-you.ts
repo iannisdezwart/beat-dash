@@ -40,87 +40,85 @@ class LevelCraveYou extends Level {
 			this.warmupDrums,
 			this.warmupDrums,
 			this.warmupDrums,
-
-			// Todo: make rest of the map
 		])
 	}
 
 	introOutro(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 4, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 4, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreTrail(new Vector([ beat + 6, gen.calcY(0) ]), 1.25, false, false))
 		return 8
 	}
 
 	introDrums(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		return 16
 	}
 
 	warmupDrums(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		return 16
 	}
 
 	buildupDrums(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		return 16
 	}
 
 	preDropCooldown(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Break(beat, 24))
-		sprites.push(new ScoreBlock(new Vector([ beat + 24, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 25, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 26, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 27, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 28, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 29, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 30, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 24, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 25, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 26, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 27, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 28, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 29, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 30, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		return 32
 	}
 
 	drop(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 9, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 9, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
 		return 16
 	}
 
 	drop1End(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new ScoreTrail(new Vector([ beat + 8, gen.calcY(0) ]), 1, false, true))
 		sprites.push(new ScoreTrail(new Vector([ beat + 10, gen.calcY(0) ]), 1, false, false))
 		sprites.push(new ScoreTrail(new Vector([ beat + 12, gen.calcY(0) ]), 1, false, true))
@@ -130,29 +128,29 @@ class LevelCraveYou extends Level {
 
 	drop2(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 13, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 13, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		return 16
 	}
 
 	drop2End(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreTrail(new Vector([ beat + 8, gen.calcY(0) ]), 1, false, false))
 		sprites.push(new ScoreTrail(new Vector([ beat + 10, gen.calcY(0) ]), 1, false, true))
 		sprites.push(new ScoreTrail(new Vector([ beat + 12, gen.calcY(0) ]), 1, false, false))
@@ -178,28 +176,28 @@ class LevelCraveYou extends Level {
 
 	dropBuildup(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Break(beat + 2, 8))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		return 16
 	}
 
 	drop3(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 4, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 7, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new Spike(new Vector([ beat + 12, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 13, gen.calcY(0) ]), false, false))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, true))
+		sprites.push(new ScoreBlock(new Vector([ beat + 13, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		return 16
 	}
 
@@ -210,11 +208,11 @@ class LevelCraveYou extends Level {
 
 	cooldownDrums(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), gen.gravInverted, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, false))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		return 16
 	}
 
