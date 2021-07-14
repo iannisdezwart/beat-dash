@@ -1,6 +1,6 @@
 class LevelLoveAtHeart extends Level {
 	constructor() {
-		super('/songs/blackmill-love-at-heart.mp3', 'Blackmill - Love at Heart', 140)
+		super('/res/songs/blackmill-love-at-heart.mp3', 'Blackmill - Love at Heart', 140)
 	}
 
 	loadLevel() {

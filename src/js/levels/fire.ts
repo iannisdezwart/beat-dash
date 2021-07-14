@@ -1,6 +1,6 @@
 class LevelFire extends Level {
 	constructor() {
-		super('/songs/brook-xiao-fire-ft-rachel-horter-ncs-release.mp3',
+		super('/res/songs/brook-xiao-fire-ft-rachel-horter-ncs-release.mp3',
 			'Brook Xiao - Fire', 148)
 	}
 

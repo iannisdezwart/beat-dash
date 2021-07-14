@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as http from 'http'
 import { lookup as mimeLookup } from 'mime-types'
+import { compile as compileWebApp } from './compiler'
 
 const fileExists = (path: string) => {
 	return fs.existsSync(path) && !fs.statSync(path).isDirectory()
@@ -14,18 +15,29 @@ const sendFile = (path: string, res: http.ServerResponse) => {
 	fs.createReadStream(path).pipe(res)
 }
 
-const server = http.createServer((req, res) => {
-	const path = __dirname + '/public' + req.url.replace(/\.\./g, '')
+const main = async () => {
+	await compileWebApp()
 
-	console.log(`[ Request ] ${ path }`)
+	const server = http.createServer((req, res) => {
+		const path = __dirname + '/root' + req.url.replace(/\.\./g, '')
 
-	if (fileExists(path)) {
-		sendFile(path, res)
-	} else if (fileExists(path + 'index.html')) {
-		sendFile(path + 'index.html', res)
-	} else {
-		res.end('Yeah nah that doesn\'t exist')
-	}
-})
+		console.log(`[ Request ] ${ path }`)
 
-server.listen(80)
+		if (fileExists(path)) {
+			sendFile(path, res)
+		} else if (fileExists(path + 'index.html')) {
+			sendFile(path + 'index.html', res)
+		} else {
+			res.writeHead(404)
+			res.end('Yeah nah that doesn\'t exist')
+		}
+	})
+
+	const port = process.argv[2] == null ? 80 : +process.argv[2]
+
+	server.listen(port, () => {
+		console.log(`Server started listening on port ${ port }`)
+	})
+}
+
+main()

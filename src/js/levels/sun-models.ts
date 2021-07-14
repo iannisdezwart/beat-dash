@@ -1,6 +1,6 @@
 class LevelSunModels extends Level {
 	constructor() {
-		super('/songs/sun-models.mp3',
+		super('/res/songs/sun-models.mp3',
 			'Odesza - Sun Models', 60)
 	}
 
