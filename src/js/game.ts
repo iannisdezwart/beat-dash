@@ -46,50 +46,50 @@ class Game {
 
 		// Pause when P is pressed
 
-		this.pauseButtonListener = this.keyboard.onPress('KeyP', () => {
+		this.pauseButtonListener = this.keyboard.onPress(PAUSE_KEY, () => {
 			this.togglePause()
 		})
 
 		// Setup touch screen
 
 		this.touchScreen.onTouchArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 / 2 ]), () => {
-			this.keyboard.emulatePressStart('KeyR')
+			this.keyboard.emulatePressStart(LEFT_SUPER_JUMP)
 		})
 
 		this.touchScreen.onTouchEndArea(new Vector([ 0, 0 ]), new Vector([ 1 / 4, 1 / 2 ]), () => {
-			this.keyboard.emulatePressEnd('KeyR')
+			this.keyboard.emulatePressEnd(LEFT_SUPER_JUMP)
 		})
 
 		this.touchScreen.onTouchArea(new Vector([ 0, 1 / 2 ]), new Vector([ 1 / 4, 1 ]), () => {
-			this.keyboard.emulatePressStart('KeyF')
+			this.keyboard.emulatePressStart(LEFT_POP)
 		})
 
 		this.touchScreen.onTouchEndArea(new Vector([ 0, 1 / 2 ]), new Vector([ 1 / 4, 1 ]), () => {
-			this.keyboard.emulatePressEnd('KeyF')
+			this.keyboard.emulatePressEnd(LEFT_POP)
 		})
 
 		this.touchScreen.onTouchArea(new Vector([ 1 / 4, 0 ]), new Vector([ 3 / 4, 1 ]), () => {
-			this.keyboard.emulatePressStart('Space')
+			this.keyboard.emulatePressStart(JUMP)
 		})
 
 		this.touchScreen.onTouchEndArea(new Vector([ 1 / 4, 0 ]), new Vector([ 3 / 4, 1 ]), () => {
-			this.keyboard.emulatePressEnd('Space')
+			this.keyboard.emulatePressEnd(JUMP)
 		})
 
 		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 / 2 ]), () => {
-			this.keyboard.emulatePressStart('KeyU')
+			this.keyboard.emulatePressStart(RIGHT_SUPER_JUMP)
 		})
 
 		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 0 ]), new Vector([ 1, 1 / 2 ]), () => {
-			this.keyboard.emulatePressEnd('KeyU')
+			this.keyboard.emulatePressEnd(RIGHT_SUPER_JUMP)
 		})
 
 		this.touchScreen.onTouchArea(new Vector([ 3 / 4, 1 / 2 ]), new Vector([ 1, 1 ]), () => {
-			this.keyboard.emulatePressStart('KeyJ')
+			this.keyboard.emulatePressStart(RIGHT_POP)
 		})
 
 		this.touchScreen.onTouchEndArea(new Vector([ 3 / 4, 1 / 2 ]), new Vector([ 1, 1 ]), () => {
-			this.keyboard.emulatePressEnd('KeyJ')
+			this.keyboard.emulatePressEnd(RIGHT_POP)
 		})
 	}
 

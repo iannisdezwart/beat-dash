@@ -1,8 +1,8 @@
 enum ScoreBlockOrientation {
 	LEFT,
 	RIGHT,
-	TOP_LEFT,
-	TOP_RIGHT
+	FAR_LEFT,
+	FAR_RIGHT
 }
 
 class ScoreBlock extends Sprite {
@@ -12,8 +12,8 @@ class ScoreBlock extends Sprite {
 
 	static backgroundColourLeft = '#00ff00'
 	static backgroundColourRight = '#ff00ff'
-	static backgroundColourTopLeft = '#77ff77'
-	static backgroundColourTopRight = '#ff77ff'
+	static backgroundColourFarLeft = '#77ff77'
+	static backgroundColourFarRight = '#ff77ff'
 	static arrowColour = '#ffffff'
 	static get width() { return 0.04 * Game.fov }
 	static height = ScoreBlock.width
@@ -35,6 +35,10 @@ class ScoreBlock extends Sprite {
 
 	bottomRight() {
 		return new Vector([ this.pos.x + ScoreBlock.width / 2, this.pos.y ])
+	}
+
+	middleX() {
+		return this.pos.x
 	}
 
 	middleY() {
@@ -77,27 +81,63 @@ class ScoreBlock extends Sprite {
 			return
 		}
 
-		// Draw a top left pointing arrow
+		// Draw a far left pointing arrow
 
-		if (this.orientation == ScoreBlockOrientation.TOP_LEFT) {
-			game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourTopLeft)
-			const topLeft = new Vector([ this.topLeft().x + xBorder, this.topLeft().y + xBorder ])
-			const bottomLeft = new Vector([ this.topLeft().x + xBorder, this.bottomRight().y - xBorder ])
-			const topRight = new Vector([ this.bottomRight().x - xBorder, this.topLeft().y + xBorder ])
+		// if (this.orientation == ScoreBlockOrientation.FAR_LEFT) {
+		// 	game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourTopLeft)
+		// 	const topLeft = new Vector([ this.topLeft().x + xBorder, this.topLeft().y + xBorder ])
+		// 	const bottomLeft = new Vector([ this.topLeft().x + xBorder, this.bottomRight().y - xBorder ])
+		// 	const topRight = new Vector([ this.bottomRight().x - xBorder, this.topLeft().y + xBorder ])
 
-			game.fillPolygon([ topLeft, bottomLeft, topRight, topLeft ], ScoreBlock.arrowColour)
+		// 	game.fillPolygon([ topLeft, bottomLeft, topRight, topLeft ], ScoreBlock.arrowColour)
+		// 	return
+		// }
+
+		if (this.orientation == ScoreBlockOrientation.FAR_LEFT) {
+			game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourFarLeft)
+
+			const left1 = new Vector([ this.topLeft().x + xBorder, this.middleY() ])
+			const top1 = new Vector([ this.middleX(), this.topLeft().y + xBorder ])
+			const bottom1 = new Vector([ this.middleX(), this.bottomRight().y - xBorder ])
+
+			game.fillPolygon([ top1, left1, bottom1, top1 ], ScoreBlock.arrowColour)
+
+			const left2 = new Vector([ this.middleX(), this.middleY() ])
+			const top2 = new Vector([ this.bottomRight().x - xBorder, this.topLeft().y + xBorder ])
+			const bottom2 = new Vector([ this.bottomRight().x - xBorder, this.bottomRight().y - xBorder ])
+
+			game.fillPolygon([ top2, left2, bottom2, top2 ], ScoreBlock.arrowColour)
+
 			return
 		}
 
 		// Draw a top right pointing arrow
 
-		if (this.orientation == ScoreBlockOrientation.TOP_RIGHT) {
-			game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourTopRight)
-			const topRight = new Vector([ this.bottomRight().x - xBorder, this.topLeft().y + xBorder ])
-			const bottomRight = new Vector([ this.bottomRight().x - xBorder, this.bottomRight().y - xBorder ])
-			const topLeft = new Vector([ this.topLeft().x + xBorder, this.topLeft().y + xBorder ])
+		// if (this.orientation == ScoreBlockOrientation.FAR_RIGHT) {
+		// 	game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourTopRight)
+		// 	const topRight = new Vector([ this.bottomRight().x - xBorder, this.topLeft().y + xBorder ])
+		// 	const bottomRight = new Vector([ this.bottomRight().x - xBorder, this.bottomRight().y - xBorder ])
+		// 	const topLeft = new Vector([ this.topLeft().x + xBorder, this.topLeft().y + xBorder ])
 
-			game.fillPolygon([ topRight, bottomRight, topLeft, topRight ], ScoreBlock.arrowColour)
+		// 	game.fillPolygon([ topRight, bottomRight, topLeft, topRight ], ScoreBlock.arrowColour)
+		// 	return
+		// }
+
+		if (this.orientation == ScoreBlockOrientation.FAR_RIGHT) {
+			game.fillRect(this.topLeft(), this.bottomRight(), ScoreBlock.backgroundColourFarRight)
+
+			const right1 = new Vector([ this.middleX(), this.middleY() ])
+			const top1 = new Vector([ this.topLeft().x + xBorder, this.topLeft().y + xBorder ])
+			const bottom1 = new Vector([ this.topLeft().x + xBorder, this.bottomRight().y - xBorder ])
+
+			game.fillPolygon([ top1, right1, bottom1, top1 ], ScoreBlock.arrowColour)
+
+			const right2 = new Vector([ this.bottomRight().x - xBorder, this.middleY() ])
+			const top2 = new Vector([ this.middleX(), this.topLeft().y + xBorder ])
+			const bottom2 = new Vector([ this.middleX(), this.bottomRight().y - xBorder ])
+
+			game.fillPolygon([ top2, right2, bottom2, top2 ], ScoreBlock.arrowColour)
+
 			return
 		}
 	}
@@ -109,30 +149,30 @@ class ScoreBlock extends Sprite {
 			player.right() >= this.topLeft().x && player.left() <= this.bottomRight().x
 			&& player.bottom() >= this.topLeft().y && player.top() <= this.bottomRight().y
 		) {
-			// Pop left pointing score block by pressing F
+			// Pop left pointing score block
 
-			if (this.orientation == ScoreBlockOrientation.LEFT && player.game.keyboard.isPressed('KeyF')) {
+			if (this.orientation == ScoreBlockOrientation.LEFT && player.game.keyboard.isPressed(LEFT_POP)) {
 				this.handlePlayerHit(player)
 				return
 			}
 
-			// Pop right pointing score block by pressing J
+			// Pop right pointing score block
 
-			if (this.orientation == ScoreBlockOrientation.RIGHT && player.game.keyboard.isPressed('KeyJ')) {
+			if (this.orientation == ScoreBlockOrientation.RIGHT && player.game.keyboard.isPressed(RIGHT_POP)) {
 				this.handlePlayerHit(player)
 				return
 			}
 
-			// Pop top left pointing score block by pressing R
+			// Pop far left pointing score block
 
-			if (this.orientation == ScoreBlockOrientation.TOP_LEFT && player.game.keyboard.isPressed('KeyR')) {
+			if (this.orientation == ScoreBlockOrientation.FAR_LEFT && player.game.keyboard.isPressed(FAR_LEFT_POP)) {
 				this.handlePlayerHit(player)
 				return
 			}
 
-			// Pop top right pointing score block by pressing U
+			// Pop far right pointing score block
 
-			if (this.orientation == ScoreBlockOrientation.TOP_RIGHT && player.game.keyboard.isPressed('KeyU')) {
+			if (this.orientation == ScoreBlockOrientation.FAR_RIGHT && player.game.keyboard.isPressed(FAR_RIGHT_POP)) {
 				this.handlePlayerHit(player)
 				return
 			}

@@ -116,16 +116,16 @@ class ScoreTrail extends Sprite {
 			player.right() >= this.topLeft().x && player.left() <= this.bottomRight().x
 			&& player.bottom() >= this.topLeft().y && player.top() <= this.bottomRight().y
 		) {
-			// Pop left pointing score trail by pressing F
+			// Pop left pointing score trail
 
 			if (this.pointsLeft) {
 				if (
 					this.popState == PopStates.NOT_POPPED
-					&& player.game.keyboard.isPressed('KeyF')
+					&& player.game.keyboard.isPressed(LEFT_POP)
 				) {
 					this.handlePlayerSlideStart(player)
 				} else if (this.popState == PopStates.BEING_POPPED) {
-					if (player.game.keyboard.isPressed('KeyF')) {
+					if (player.game.keyboard.isPressed(LEFT_POP)) {
 						this.handlePlayerSlide(player)
 					} else {
 						this.handlePlayerSlideEnd(player)
@@ -133,16 +133,16 @@ class ScoreTrail extends Sprite {
 				}
 			}
 
-			// Pop right pointing score trail by pressing J
+			// Pop right pointing score trail
 
 			else {
 				if (
 					this.popState == PopStates.NOT_POPPED
-					&& player.game.keyboard.isPressed('KeyJ')
+					&& player.game.keyboard.isPressed(RIGHT_POP)
 				) {
 					this.handlePlayerSlideStart(player)
 				} else if (this.popState == PopStates.BEING_POPPED) {
-					if (player.game.keyboard.isPressed('KeyJ')) {
+					if (player.game.keyboard.isPressed(RIGHT_POP)) {
 						this.handlePlayerSlide(player)
 					} else {
 						this.handlePlayerSlideEnd(player)
