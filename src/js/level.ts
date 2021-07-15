@@ -44,6 +44,10 @@ abstract class Level {
 
 		;(document.activeElement as HTMLElement).blur()
 
+		// Stop song
+
+		this.song.stop()
+
 		// Recreate game
 
 		this.game = new Game('game', this)
@@ -60,10 +64,11 @@ abstract class Level {
 
 		// Start when space is pressed
 
-		this.spaceListenerID = this.game.keyboard.onPress('Space', () => this.start())
+		this.spaceListenerID = this.game.keyboard.onPress(JUMP, () => this.start())
 	}
 
 	destroy() {
+		this.song.stop()
 		this.game.destroy()
 	}
 
@@ -78,7 +83,7 @@ abstract class Level {
 
 		// Start downloading the song
 
-		const soundPromise = Sound.getFile(this.songFileName, ratio => {
+		const soundPromise = this.song.load(this.songFileName, ratio => {
 			const loadingPercentage =
 				document.querySelector<HTMLDivElement>('#loading-screen-percentage')
 
@@ -100,16 +105,11 @@ abstract class Level {
 
 		// Wait until the song finished downloading and then load it
 
-		this.songURL = await soundPromise
-		await this.loadSong()
+		await soundPromise
+		this.song.setVolume(database.storedVolume)
 
 		this.removeLoadingScreen()
 		this.onLoaded()
-	}
-
-	async loadSong() {
-		await this.song.load(this.songURL)
-		this.song.setVolume(database.storedVolume)
 	}
 
 	showLoadingScreen() {

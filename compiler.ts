@@ -163,6 +163,7 @@ export const compile = async () => {
 					${ inlineJS('src/js/sprite.js') }
 					${ inlineJS('src/js/keyboard.js') }
 					${ inlineJS('src/js/touch-screen.js') }
+					${ inlineJS('src/js/keys.js') }
 					${ inlineJS('src/js/game.js') }
 					${ inlineJS('src/js/sound.js') }
 					${ inlineJS('src/js/beat-visualiser.js') }

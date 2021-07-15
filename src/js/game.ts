@@ -110,7 +110,12 @@ class Game {
 	}
 
 	start() {
-		if (!this.active) this.setupVisualisers()
+		if (!this.active) {
+			this.level.song.start()
+			this.setupVisualisers()
+
+			this.active = true
+		}
 
 		// Update volume
 

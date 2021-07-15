@@ -1,91 +1,100 @@
-interface HTMLAudioElement {
-	captureStream(): MediaStream
-	mozCaptureStream(): MediaStream
-}
-
-if (HTMLAudioElement.prototype.captureStream == null) {
-	HTMLAudioElement.prototype.captureStream = HTMLAudioElement.prototype.mozCaptureStream
-}
-
 class Sound {
-	audio: HTMLAudioElement
 	audioContext: AudioContext
-	audioStream: MediaStream
-	audioSource: MediaStreamAudioSourceNode
+	bufferSource: AudioBufferSourceNode
+	gainNode: GainNode
 	analyser: AnalyserNode
 
-	constructor() {
-		this.audio = document.createElement('audio')
-		this.audio.pause()
+	constructAudioContext() {
+		this.audioContext = new AudioContext()
+		this.audioContext.suspend()
+		this.gainNode = this.audioContext.createGain()
+		this.gainNode.connect(this.audioContext.destination)
 	}
 
-	async load(fileURL: string) {
-		this.audio.src = fileURL
-		await this.waitUntilLoaded()
-	}
+	async load(fileURL: string, progressCallback: (ratio: number) => void) {
+		return new Promise<void>((resolve, reject) => {
+			const req = new XMLHttpRequest()
+			req.responseType = 'arraybuffer'
+			req.open('GET', fileURL)
 
-	waitUntilLoaded() {
-		return new Promise<void>(resolve => {
-			if (this.audio.duration > 0) {
-				resolve()
-				return
-			}
+			req.addEventListener('load', () => {
+				this.constructAudioContext()
 
-			this.audio.addEventListener('canplay', () => resolve())
+				this.audioContext.decodeAudioData(req.response)
+					.then(buf => {
+						this.bufferSource = this.audioContext.createBufferSource()
+						this.bufferSource.buffer = buf
+						this.bufferSource.connect(this.gainNode)
+						resolve()
+					})
+			})
+
+			req.addEventListener('progress', e => {
+				const loaded = e.loaded
+				const total = parseInt(req.getResponseHeader('File-Size'), 10)
+				progressCallback(loaded / total)
+			})
+
+			req.addEventListener('error', reject)
+
+			req.send()
 		})
 	}
 
+	start() {
+		this.bufferSource.start(0)
+		this.setupAnalyser()
+	}
+
 	play()  {
-		this.audio.play()
-		if (this.analyser == null) this.setupAnalyser()
+		this.audioContext.resume()
 	}
 
 	pause() {
-		this.audio.pause()
+		this.audioContext.suspend()
 	}
 
 	stop() {
-		this.pause()
-		this.seek(0)
+		if (this.bufferSource) {
+			this.bufferSource.disconnect()
+			this.bufferSource.stop(0)
+		}
 	}
 
 	duration() {
-		return this.audio.duration
+		return this.bufferSource.buffer.duration
 	}
 
 	time() {
-		return this.audio.currentTime
+		return this.audioContext.currentTime
 	}
 
 	seek(seconds: number) {
-		this.audio.currentTime = seconds
+		this.bufferSource.start(0, seconds)
 	}
 
 	getVolume() {
-		return this.audio.volume
+		return this.gainNode.gain.value
 	}
 
 	setVolume(newVolume: number) {
-		this.audio.volume = newVolume
+		this.gainNode.gain.value = newVolume
 	}
 
 	isPlaying() {
-		return !this.audio.paused
+		return this.audioContext.state == 'running'
 	}
 
 	ended() {
-		return this.audio.ended
+		return this.audioContext.state == 'closed'
 	}
 
 	setupAnalyser() {
-		this.audioStream = this.audio.captureStream()
-		this.audioContext = new AudioContext()
-		this.audioSource = this.audioContext.createMediaStreamSource(this.audioStream)
 		this.analyser = this.audioContext.createAnalyser()
 		this.analyser.fftSize = AudioVisualiser.fftSize
 		this.analyser.maxDecibels = AudioVisualiser.maxDecibels
 		this.analyser.minDecibels = AudioVisualiser.minDecibels
-		this.audioSource.connect(this.analyser)
+		this.bufferSource.connect(this.analyser)
 	}
 
 	getFrequencyArray(lowerFreq = 20, upperFreq = 2000) {
@@ -98,7 +107,7 @@ class Sound {
 		return array.subarray(minFreqBinCount, maxFreqBinCount)
 	}
 
-	static getFile(fileName: string, progressCallback: (ratio: number) => void) {
+	getFile(fileName: string, progressCallback: (ratio: number) => void) {
 		return new Promise<string>((resolve, reject) => {
 			const req = new XMLHttpRequest()
 			req.responseType = 'blob'
