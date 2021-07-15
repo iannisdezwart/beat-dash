@@ -60,16 +60,16 @@ class LevelFire extends Level {
 
 	intro2(sprites: Sprite[], beat: number, gen: MapGenerator) {
 		sprites.push(new Spike(new Vector([ beat, gen.calcY(0) ]), false, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.TOP_LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0) ]), false, ScoreBlockOrientation.FAR_LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 4.5, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.TOP_RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0) ]), false, ScoreBlockOrientation.FAR_RIGHT))
 		sprites.push(new Spike(new Vector([ beat + 8, gen.calcY(0) ]), false, '#0000ff'))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.TOP_LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0) ]), false, ScoreBlockOrientation.FAR_LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 12.5, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 13, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.TOP_RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0) ]), false, ScoreBlockOrientation.FAR_RIGHT))
 		return 16
 	}
 
@@ -155,22 +155,22 @@ class LevelFire extends Level {
 		sprites.push(new ScoreBlock(new Vector([ beat + 0.5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 1, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		// sprites.push(new ScoreTrail(new Vector([ beat + 1, gen.calcY(0) ]), 0.25, false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), false, ScoreBlockOrientation.TOP_LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 2, gen.calcY(0)]), false, ScoreBlockOrientation.FAR_LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 3, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 3.5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		// sprites.push(new ScoreBlock(new Vector([ beat + 4, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreTrail(new Vector([ beat + 4, gen.calcY(0) ]), 1, false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0)]), false, ScoreBlockOrientation.TOP_RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 6, gen.calcY(0)]), false, ScoreBlockOrientation.FAR_RIGHT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 8, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 8.5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 9, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		// sprites.push(new ScoreTrail(new Vector([ beat + 9, gen.calcY(0) ]), 0.25, false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0)]), false, ScoreBlockOrientation.TOP_LEFT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 10, gen.calcY(0)]), false, ScoreBlockOrientation.FAR_LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreBlock(new Vector([ beat + 11.5, gen.calcY(0) ]), false, ScoreBlockOrientation.RIGHT))
 		// sprites.push(new ScoreBlock(new Vector([ beat + 12, gen.calcY(0) ]), false, ScoreBlockOrientation.LEFT))
 		sprites.push(new ScoreTrail(new Vector([ beat + 12, gen.calcY(0) ]), 1, false, true))
-		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0)]), false, ScoreBlockOrientation.TOP_RIGHT))
+		sprites.push(new ScoreBlock(new Vector([ beat + 14, gen.calcY(0)]), false, ScoreBlockOrientation.FAR_RIGHT))
 		return 16
 	}
 }
