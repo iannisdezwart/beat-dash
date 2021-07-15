@@ -13,6 +13,7 @@ class Player extends Sprite {
 
 	score = 0
 	scoreBlocksGathered = 0
+	jumpPadsPopped = 0
 	scoreTrailDistanceSlided = 0
 	spikesHit = 0
 	platformsMissed = 0
@@ -28,10 +29,6 @@ class Player extends Sprite {
 		super()
 		this.game = game
 		this.pos = new Vector([ 0, Floor.y ])
-
-		this.game.keyboard.onPress('KeyW', () => {
-			this.gravityMultiplier *= -1
-		})
 	}
 
 	left() {
@@ -78,6 +75,13 @@ class Player extends Sprite {
 		}
 	}
 
+	superJump() {
+		if (this.game.scroll > this.lastJumpEnd + Player.jumpCooldown) {
+			this.isJumping = true
+			this.jumpTrajectory = new JumpTrajectory(this, 2, 2)
+		}
+	}
+
 	fall(dt: number) {
 		this.fallAcc = this.gravityMultiplier * Player.gravity
 		this.fallVel += this.fallAcc * dt / 10
@@ -108,7 +112,7 @@ class Player extends Sprite {
 	}
 
 	render(game: Game, dt: number) {
-		if (game.keyboard.isPressed('Space') && !this.isJumping && this.isOnFloor()) {
+		if (game.keyboard.isPressed(JUMP) && !this.isJumping && this.isOnFloor()) {
 			this.jump()
 		}
 
@@ -164,21 +168,33 @@ class JumpTrajectory {
 	player: Player
 	game: Game
 	impactX: number
+	rotMultiplier: number
+	dimMultiplier: number
 
 	static width = 0.75
 	static get height() { return 0.15 * Game.fov }
 
-	constructor(player: Player) {
+	get width() {
+		return JumpTrajectory.width * this.dimMultiplier
+	}
+
+	get height() {
+		return JumpTrajectory.height * this.dimMultiplier
+	}
+
+	constructor(player: Player, dimMultiplier = 1, rotMultiplier = 1) {
 		this.startingPos = player.pos.copy()
 		this.player = player
 		this.game = player.game
+		this.rotMultiplier = rotMultiplier
+		this.dimMultiplier = dimMultiplier
 		this.impactX = this.calcImpactX()
 	}
 
 	getY(x: number) {
 		const gravityDirection = this.player.gravityMultiplier
 		const dx = x - this.startingPos.x
-		return gravityDirection * 4 * JumpTrajectory.height / (JumpTrajectory.width) ** 2 * dx * (dx - JumpTrajectory.width) + this.startingPos.y
+		return gravityDirection * 4 * this.height / (this.width) ** 2 * dx * (dx - this.width) + this.startingPos.y
 	}
 
 	playerRotation(x: number) {
@@ -186,7 +202,7 @@ class JumpTrajectory {
 		const xFinal = this.impactX - this.startingPos.x
 		const ratio = xProgress / xFinal
 
-		return (ratio < 1 ? ratio : 1) * Math.PI / 2
+		return (ratio < 1 ? ratio : 1) * Math.PI / 2 * this.rotMultiplier
 	}
 
 	calcImpactX() {

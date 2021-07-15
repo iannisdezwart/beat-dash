@@ -121,6 +121,10 @@ export const compile = async () => {
 										<td class="right" id="score-blocks-gathered"></td>
 									</tr>
 									<tr>
+										<td>Jump pads popped</td>
+										<td class="right" id="jump-pads-popped"></td>
+									</tr>
+									<tr>
 										<td>Score trail distance slided</td>
 										<td class="right" id="score-trail-distance-slided"></td>
 									</tr>
@@ -172,6 +176,7 @@ export const compile = async () => {
 					${ inlineJS('src/js/sprites/score-trail.js') }
 					${ inlineJS('src/js/sprites/gravity-invertor.js') }
 					${ inlineJS('src/js/sprites/break.js') }
+					${ inlineJS('src/js/sprites/jump-pad.js') }
 					${ inlineJS('src/js/map-generator.js') }
 					${ inlineJS('src/js/level.js') }
 					${ inlineJS('src/js/level-list.js') }
