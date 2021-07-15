@@ -41,5 +41,11 @@ const levelList: LevelEntry[] = [
 		artist: 'Brook Xiao',
 		bpm: 148,
 		createLevel: () => new LevelFire()
+	},
+	{
+		title: 'Away',
+		artist: 'Phantom Sage',
+		bpm: 140,
+		createLevel: () => new LevelAway
 	}
 ]

@@ -44,10 +44,6 @@ abstract class Level {
 
 		;(document.activeElement as HTMLElement).blur()
 
-		// Stop song
-
-		this.song.stop()
-
 		// Recreate game
 
 		this.game = new Game('game', this)
