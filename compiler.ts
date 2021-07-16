@@ -178,6 +178,7 @@ export const compile = async () => {
 					${ inlineJS('src/js/sprites/gravity-invertor.js') }
 					${ inlineJS('src/js/sprites/break.js') }
 					${ inlineJS('src/js/sprites/jump-pad.js') }
+					${ inlineJS('src/js/sprites/spike-ceiling.js') }
 					${ inlineJS('src/js/map-generator.js') }
 					${ inlineJS('src/js/level.js') }
 					${ inlineJS('src/js/level-list.js') }

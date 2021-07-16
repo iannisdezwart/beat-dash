@@ -10,6 +10,7 @@ class Player extends Sprite {
 	lastJumpEnd = -Infinity
 	jumpTrajectory: JumpTrajectory
 	angle = 0
+	lastTimeOnFloor = -Infinity
 
 	score = 0
 	scoreBlocksGathered = 0
@@ -90,6 +91,7 @@ class Player extends Sprite {
 
 	stopFalling() {
 		this.fallVel = 0
+		this.lastTimeOnFloor = this.game.scroll
 	}
 
 	draw(game: Game) {
@@ -194,6 +196,7 @@ class JumpTrajectory {
 	getY(x: number) {
 		const gravityDirection = this.player.gravityMultiplier
 		const dx = x - this.startingPos.x
+		if (x > this.impactX) this.player.isJumping = false
 		return gravityDirection * 4 * this.height / (this.width) ** 2 * dx * (dx - this.width) + this.startingPos.y
 	}
 
@@ -214,7 +217,8 @@ class JumpTrajectory {
 			for (let sprite of sprites) {
 				if (
 					(sprite instanceof Platform || sprite instanceof Spike
-					|| sprite instanceof Floor || sprite instanceof Ceiling)
+					|| sprite instanceof Floor || sprite instanceof Ceiling
+					|| sprite instanceof SpikeCeiling)
 					&& sprite.isInside(new Vector([ x, this.getY(x) ]))
 				) {
 					return x

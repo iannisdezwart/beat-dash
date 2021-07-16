@@ -10,6 +10,10 @@ class MapGenerator {
 		this.game = game
 	}
 
+	toggleGravity() {
+		this.gravNormal = this.gravNormal ? false : true
+	}
+
 	calcY(yOffset = 0) {
 		// If gravity is normal
 

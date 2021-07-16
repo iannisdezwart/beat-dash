@@ -94,7 +94,7 @@ class JumpPad extends Sprite {
 
 			// Pop right pointing jump pad
 
-			if (this.orientation == JumpPadOrientation.RIGHT && player.game.keyboard.isPressed(LEFT_SUPER_JUMP)) {
+			if (this.orientation == JumpPadOrientation.RIGHT && player.game.keyboard.isPressed(RIGHT_SUPER_JUMP)) {
 				this.handlePlayerHit(player)
 				return
 			}
