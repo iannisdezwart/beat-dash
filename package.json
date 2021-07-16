@@ -1,8 +1,25 @@
 {
-  "dependencies": {
-    "@types/mime-types": "^2.1.0",
-    "@types/node": "^14.14.28",
-    "mime-types": "^2.1.28",
-    "page-compiler": "^0.0.20"
-  }
+	"name": "beat-dash",
+	"version": "1.0.0",
+	"description": "Browser rhythm game",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js 3001"
+	},
+	"keywords": [
+		"game",
+		"rhythm game",
+		"beat",
+		"web"
+	],
+	"author": "Iannis de Zwart",
+	"license": "ISC",
+	"dependencies": {
+		"mime-types": "^2.1.28",
+		"page-compiler": "^0.0.20"
+	},
+	"devDependencies": {
+		"@types/mime-types": "^2.1.0",
+		"@types/node": "^14.14.28"
+	}
 }
