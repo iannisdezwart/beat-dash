@@ -46,6 +46,12 @@ const levelList: LevelEntry[] = [
 		title: 'Away',
 		artist: 'Phantom Sage',
 		bpm: 140,
-		createLevel: () => new LevelAway
+		createLevel: () => new LevelAway()
+	},
+	{
+		title: 'Losing you',
+		artist: 'Ephixa & Laura Brehm',
+		bpm: 124,
+		createLevel: () => new LevelLosingYou()
 	}
 ]

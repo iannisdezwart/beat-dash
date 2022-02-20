@@ -56,7 +56,7 @@ class SpikeCeiling extends Sprite {
 			? this.pos.y - SpikeCeiling.spikeHeight
 			: this.pos.y + SpikeCeiling.spikeHeight
 	}
-	
+
 	spikeTop() {
 		return this.orientation == SpikeCeilingOrientation.SPIKES_POINT_DOWN
 		? this.pos.y

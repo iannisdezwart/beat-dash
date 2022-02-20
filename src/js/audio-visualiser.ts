@@ -58,7 +58,6 @@ class AudioVisualiser {
 		this.bgImgShiftPos.add(this.bgImgShiftVel)
 
 		this.bgImgShiftPos = this.bgImgShiftPos.cap(AudioVisualiser.bgImgShiftAmplitude)
-		console.log(this.bgImgShiftVel.values, this.bgImgShiftVel.len())
 
 		const bgImgShiftX = this.bgImgShiftPos.x * this.bgEl.width
 		const bgImgShiftY = this.bgImgShiftPos.y * this.bgEl.height

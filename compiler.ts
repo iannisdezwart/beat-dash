@@ -190,6 +190,7 @@ export const compile = async () => {
 					${ inlineJS('src/js/levels/crave-you.js') }
 					${ inlineJS('src/js/levels/fire.js') }
 					${ inlineJS('src/js/levels/away.js') }
+					${ inlineJS('src/js/levels/losing-you.js') }
 					${ inlineJS('src/js/index.js') }
 				</body>
 			</html>
