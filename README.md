@@ -1,3 +1,3 @@
 # beat-dash
 
-try it out at: https://beatdash.tk/!
+try it out at: https://beatdash.iannis.io/!
