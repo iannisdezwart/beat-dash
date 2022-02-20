@@ -1,6 +1,6 @@
 class LevelCraveYou extends Level {
 	constructor() {
-		super('/res/songs/flight-facilities-crave-you-adventure-club-remix.mp3',
+		super('flight-facilities-crave-you-adventure-club-remix',
 			'Flight Facilities - Crave You (remix)', 140)
 	}
 

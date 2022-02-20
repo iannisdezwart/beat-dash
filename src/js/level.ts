@@ -4,6 +4,7 @@ abstract class Level {
 	songTitle: string
 	songURL: string
 	bpm: number
+	bgFileName: string
 
 	game: Game
 	mapGenerator: MapGenerator
@@ -12,9 +13,10 @@ abstract class Level {
 	spaceListenerID: number
 
 	constructor(songFileName: string, songTitle: string, bpm: number) {
-		this.songFileName = songFileName
+		this.songFileName = `/res/songs/${ songFileName }/song.mp3`
 		this.songTitle = songTitle
 		this.bpm = bpm
+		this.bgFileName = `res/songs/${ songFileName }/bg.jpg`
 
 		// Render song title
 

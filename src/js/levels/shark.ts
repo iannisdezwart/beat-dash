@@ -1,6 +1,6 @@
 class LevelShark extends Level {
 	constructor() {
-		super('/res/songs/oh-wonder-shark.mp3', 'Oh Wonder - Shark', 150)
+		super('oh-wonder-shark', 'Oh Wonder - Shark', 150)
 	}
 
 	loadLevel() {

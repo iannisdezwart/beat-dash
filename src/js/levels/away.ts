@@ -1,7 +1,6 @@
 class LevelAway extends Level {
 	constructor() {
-		super('/res/songs/phantom-sage-away-feat-byndy-ncs-release.mp3',
-			'Phantom Sage - Away', 140)
+		super('phantom-sage-away', 'Phantom Sage - Away', 140)
 	}
 
 	loadLevel() {
