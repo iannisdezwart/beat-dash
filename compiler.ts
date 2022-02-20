@@ -28,6 +28,7 @@ export const compile = async () => {
 				<body>
 					<canvas id="beat-visualiser"></canvas>
 					<canvas id="audio-visualiser"></canvas>
+					<img id="background-visualiser">
 					<canvas id="game"></canvas>
 
 					<div id="fps-counter"></div>

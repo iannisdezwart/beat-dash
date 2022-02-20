@@ -106,7 +106,8 @@ class Game {
 	setupVisualisers() {
 		this.level.song.setupAnalyser()
 		this.beatVisualiser = new BeatVisualiser('beat-visualiser', this.bps)
-		this.audioVisualiser = new AudioVisualiser('audio-visualiser', this.level.song)
+		this.audioVisualiser = new AudioVisualiser('audio-visualiser',
+			'background-visualiser', this.level)
 	}
 
 	start() {

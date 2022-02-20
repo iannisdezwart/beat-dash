@@ -71,7 +71,13 @@ class Vector {
 	}
 
 	cap(max: number) {
-		if (this.len() > max) return Vector.fromAng(this.ang()).mul(max)
+		if (this.len() > max) {
+			const [ x, y ] = Vector.fromAng(this.ang()).values
+
+			this.x = x * max
+			this.y = y * max
+		}
+
 		return this
 	}
 

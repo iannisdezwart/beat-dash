@@ -2,17 +2,28 @@ class AudioVisualiser {
 	canvas: HTMLCanvasElement
 	ctx: CanvasRenderingContext2D
 	sound: Sound
+	bgEl: HTMLImageElement
+	bgImgShiftPos: Vector
+	bgImgShiftVel: Vector
+	bgImgShiftAcc: Vector
 
 	static maxHeight = 0.3
 	static fftSize = 1 << 13
 	static maxDecibels = -20
 	static minDecibels = -60
+	static bassAmountMultiplier = 1 / 225
+	static bgImgShiftAmplitude = 0.05
 
-	constructor(canvasID: string, sound: Sound) {
+	constructor(canvasID: string, bgID: string, level: Level) {
 		this.canvas = document.getElementById(canvasID) as HTMLCanvasElement
 		this.ctx = this.canvas.getContext('2d')
-		this.sound = sound
+		this.sound = level.song
 		this.resize()
+
+		this.bgEl = document.getElementById(bgID) as HTMLImageElement
+		this.bgEl.src = level.bgFileName
+		this.bgImgShiftPos = new Vector([ 0, 0 ])
+		this.bgImgShiftVel = new Vector([ 0, 0 ])
 
 		addEventListener('resize', () => this.resize())
 	}
@@ -28,7 +39,34 @@ class AudioVisualiser {
 			return
 		}
 
+		// Get bass frequencies
+
 		const frequencies = this.sound.getFrequencyArray(20, 200)
+
+		// Visualise background image
+
+		const bassAmount = Math.sqrt(frequencies.reduce((a, b) => a + b))
+		const bgScale = 1 + 2 * AudioVisualiser.bgImgShiftAmplitude
+			+ bassAmount * AudioVisualiser.bassAmountMultiplier
+
+		const rand = () => (Math.random() * 2 - 1)
+			* AudioVisualiser.bgImgShiftAmplitude / 500
+
+		this.bgImgShiftAcc = new Vector([ rand(), rand() ])
+		this.bgImgShiftVel.add(this.bgImgShiftAcc)
+		this.bgImgShiftVel.cap(AudioVisualiser.bgImgShiftAmplitude)
+		this.bgImgShiftPos.add(this.bgImgShiftVel)
+
+		this.bgImgShiftPos = this.bgImgShiftPos.cap(AudioVisualiser.bgImgShiftAmplitude)
+		console.log(this.bgImgShiftVel.values, this.bgImgShiftVel.len())
+
+		const bgImgShiftX = this.bgImgShiftPos.x * this.bgEl.width
+		const bgImgShiftY = this.bgImgShiftPos.y * this.bgEl.height
+
+		this.bgEl.style.transform = `scale(${ bgScale }) translate(${ bgImgShiftX }px, ${ bgImgShiftY }px)`
+
+		// Render audio waveform visualiser
+
 		const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, 0)
 
 		const translateX = (x: number) => {
